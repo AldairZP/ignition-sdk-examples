@@ -8,10 +8,7 @@ import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.perspective.designer.DesignerComponentRegistry;
 import com.inductiveautomation.perspective.designer.api.ComponentDesignDelegateRegistry;
 import com.inductiveautomation.perspective.designer.api.PerspectiveDesignerInterface;
-import org.fakester.common.component.display.Image;
 import org.fakester.common.component.display.Messenger;
-import org.fakester.common.component.display.TagCounter;
-import org.fakester.designer.component.TagCountDesignDelegate;
 
 
 /**
@@ -48,12 +45,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         delegateRegistry = pdi.getComponentDesignDelegateRegistry();
 
         // register components to get them on the palette
-        registry.registerComponent(Image.DESCRIPTOR);
-        registry.registerComponent(TagCounter.DESCRIPTOR);
         registry.registerComponent(Messenger.DESCRIPTOR);
-
-        // register design delegates to get the special config UI when a component type is selected in the designer
-        delegateRegistry.register(TagCounter.COMPONENT_ID, new TagCountDesignDelegate());
     }
 
 
@@ -63,10 +55,6 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
     }
 
     private void removeComponents() {
-        registry.removeComponent(Image.COMPONENT_ID);
-        registry.removeComponent(TagCounter.COMPONENT_ID);
         registry.removeComponent(Messenger.COMPONENT_ID);
-
-        delegateRegistry.remove(TagCounter.COMPONENT_ID);
     }
 }
