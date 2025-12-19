@@ -3,23 +3,15 @@
     "compilerOptions": {
         "allowJs": false,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
-        "paths" : {
-          "*": [
-              "*"
-          ]
-        },
         "declaration": true,
         "declarationDir": "dist/typings/",
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "jsx": "react",
+        "jsx": "react-jsx",
         "module": "commonjs",
         "noEmitOnError": true,
         "noImplicitThis": true,
         "noImplicitReturns": false,
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
         "outDir": "dist/",
         "pretty": true,
@@ -27,7 +19,11 @@
         "sourceMap": true,
         "strictNullChecks": true,
         "target": "es6",
-        "lib": ["es6", "dom", "es7", "es2017"]
+        "lib": ["es6", "dom", "es7", "es2017"],
+        "strict": true,
+        "skipLibCheck": true,
+        "types": ["react", "react-dom"],
+        "forceConsistentCasingInFileNames": true
     },
     "include": [
         "./typescript/**/*.ts",

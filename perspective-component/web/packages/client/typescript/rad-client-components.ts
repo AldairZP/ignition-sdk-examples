@@ -1,13 +1,14 @@
-import {ComponentMeta, ComponentRegistry} from '@inductiveautomation/perspective-client';
-import { MessengerComponent, MessengerComponentMeta } from './components/Messenger';
+import {
+    ComponentMeta,
+    ComponentRegistry,
+} from "@inductiveautomation/perspective-client";
 
-// export so the components are referencable, e.g. `RadComponents['Image']
-export { MessengerComponent};
+// Re-export all view components + metas so other TS/TSX files can do:
+//   import { MessengerComponent } from "./components";
+export * from "./components";
 
-// as new components are implemented, import them, and add their meta to this array
-const components: Array<ComponentMeta> = [
-    new MessengerComponentMeta(),
-];
+import { MessengerComponentMeta } from "./components";
 
-// iterate through our components, registering each one with the registry.  Don't forget to register on the Java side too!
-components.forEach((c: ComponentMeta) => ComponentRegistry.register(c) );
+const components: Array<ComponentMeta> = [new MessengerComponentMeta()];
+
+components.forEach((component: ComponentMeta) => ComponentRegistry.register(component));

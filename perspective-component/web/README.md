@@ -22,7 +22,7 @@ following dependencies:
 * Node JS
 * Npm (the Node Package Manager)
 * Typescript
-* Webpack
+* Vite
 * Lerna
 * Yarn
 
@@ -34,7 +34,7 @@ the typical npm install route, and then use npm itself to install the other depe
 With NPM installed, the following command will install the remaining dependents (should not require sudo/admin privs to
 succeed):
 
-`npm i -g typescript tslint webpack lerna`
+`npm i -g typescript lerna`
 
 Building using these locally installed tools is described below in the 'Usage' section.
 
@@ -60,14 +60,13 @@ Briefly - these tools serve the following purposes:
 * *Lerna* - used to orchestrate the building of multiple inter-dependent node packages
 * *Yarn* - used as a dependency manager, replacing `npm` as the package manager in the context of the `web/` packages being
 built.
-* *Webpack* - a 'bundler', which is ultimately a build tool that combines or _bundles_ the necessary files/source into something
+* *Vite* - a build tool/bundler that combines or _bundles_ the necessary files/source into something
 that may be used as a `<script>` file on a web page.  Through plugins/configuration, it can strip excess/unused/unreachable
 code, minify, uglify, create source maps for browser-enabled debugging, etc.  The configuration provided in this example
-is a bare-minimum 'simple use' case which includes the use of the _Typescript Loader_ to manager the typescript
-compilation prior to bundling.
+is a bare-minimum 'simple use' case.
 * *Typescript* - A superset of Javascript, which allows for strong typing, fuller OOP support.  Ultimately compiles
  (sometimes called _transpiles_ ) to javascript.  Javascript version compatibility depends on configuration of
- `tsconfig.json`, and webpack.
+ `tsconfig.json`, and Vite.
 
 
 ## Directory Structure Information ##
@@ -91,7 +90,7 @@ Each subpackage withing `packages` has a number of files.  Here is a brief descr
 packages.  Notably, this is required to tell our dependency manager that dependencies containing the
 `@inductiveautomation` scope prefix should resolve against the Inductive Automation node package repository, similar to
  how we provide maven artifacts.
- * *webpack.config.js* - configuration file used for webpack, bearing the default webpack name.
+ * *vite.config.ts* - configuration file used for Vite.
  * *package.json* - Where package names, versions, and dependencies are defined, including dev dependencies.  May
  optionally contain configuration for additional tools.
  * *tsconfig.json* - Contains configuration specific to the typescript compiler as well as (optionally) configuration
@@ -103,7 +102,7 @@ packages.  Notably, this is required to tell our dependency manager that depende
  'entry' point of the package.  All components intended to be usable at runtime must be exported from this root index,
  otherwise it may get 'pruned' from the final javascript file.
  * *dist/* - the `distribution` or `build output` directory.  It's created and populated with the result of your
- typescript --> webpack bundling.  May be safely deleted, will be recreated on next build.
+ typescript --> Vite bundling.  May be safely deleted, will be recreated on next build.
 
 ## Usage ##
 
@@ -120,10 +119,10 @@ of the `web` folder, and will establish the dependencies for child packages.
 
 ## Notes ##
 
-* Typescript, webpack, etc, is not required to build a module with components for Perspective. We recommend it as best
+* Typescript, Vite, etc, is not required to build a module with components for Perspective. We recommend it as best
 practice, but you are free to create your javascript any way you would prefer.
 * dist/ contains the final output of a build
-* The webpack build finalizes with the copying of the webpacked resources from each packages `dist/` folder into the
+* The build finalizes with the copying of the bundled resources from each packages `dist/` folder into the
 gateway scoped `resources/mounted/js/` folder, which is where perspective will look to retrieve them.  This location is
 registered as part of the GatewayHook.
 
