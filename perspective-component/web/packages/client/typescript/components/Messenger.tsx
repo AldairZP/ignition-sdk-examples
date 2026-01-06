@@ -14,7 +14,8 @@ import {
   PropertyTree,
   SizeObject,
 } from "@inductiveautomation/perspective-client";
-import { HelloFx } from "./HelloFx";
+import { Plane } from "./Plane";
+import { type PointData } from "./Plane/types";
 
 // The 'key' or 'id' for this component type. Component must be registered with this EXACT key in the Java side as well
 // as on the client side.
@@ -26,7 +27,7 @@ export const COMPONENT_TYPE = "rad.display.messenger";
 export const MESSAGE_CONFIG_PROP = "messageConfig";
 
 interface MessagePropConfig {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 interface MessengerProps {
@@ -36,21 +37,13 @@ interface MessengerProps {
 }
 
 // Default configuration in component props. Added here just as a useful reference.
-export const DEFAULT_MESSAGE_CONFIG: MessagePropConfig = {
-  "0": "None",
-  "1": "Messages!",
-  "5": "Lots of Messages!",
-  "10": "Literally ten+ messages!",
-  "25": "Carpal Tunnel Warning!",
-};
-
+export const DEFAULT_MESSAGE_CONFIG: PointData[] = [{ id: "0", x: 1, y: 2 }];
 /**
  * Our Perspective component, written as a React functional component.
  */
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
-  return (
-    <HelloFx />
-  );
+  console.log(props.props.messageConfig)
+  return <Plane points={props.props.messageConfig.points}/>;
 };
 
 // This is the actual thing that gets registered with the component registry.
@@ -73,7 +66,7 @@ export class MessengerComponentMeta implements ComponentMeta {
 
   getPropsReducer(tree: PropertyTree): MessengerProps {
     return {
-      messageConfig: tree.read("messageConfig", DEFAULT_MESSAGE_CONFIG),
+      messageConfig: tree.read("messageConfig"),
       clicked: tree.readBoolean("clicked", false),
       clicks: tree.readNumber("clicks", 0),
     };

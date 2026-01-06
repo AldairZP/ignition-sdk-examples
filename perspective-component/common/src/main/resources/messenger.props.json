@@ -14,7 +14,7 @@
                     "type": "object",
                     "description": "point of plane",
                     "default": {
-                        "id": 0,
+                        "id": "0",
                         "x": 1,
                         "y": 1
                     }
@@ -22,7 +22,7 @@
             },
             "default": [
                 {
-                    "id": 0,
+                    "id": "0",
                     "x": 1,
                     "y": 1
                 }
