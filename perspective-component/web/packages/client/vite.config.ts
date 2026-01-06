@@ -50,6 +50,7 @@ export default defineConfig(({ mode }) => {
       outDir: "dist",
       sourcemap: isDev,
       emptyOutDir: false,
+      cssCodeSplit: false,
       lib: {
         entry: path.resolve(__dirname, "typescript/rad-client-components.ts"),
         name: libName,
@@ -71,6 +72,13 @@ export default defineConfig(({ mode }) => {
             mobx: "mobx",
             "mobx-react": "mobxReact",
             "@inductiveautomation/perspective-client": "PerspectiveClient",
+          },
+          assetFileNames: (assetInfo) => {
+            const name = assetInfo.name ?? "";
+            if (name.endsWith(".css")) {
+              return `${libName}[extname]`;
+            }
+            return "assets/[name][extname]";
           },
         },
       },

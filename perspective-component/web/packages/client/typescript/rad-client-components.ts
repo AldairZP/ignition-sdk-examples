@@ -3,6 +3,8 @@ import {
     ComponentRegistry,
 } from "@inductiveautomation/perspective-client";
 
+import "../scss/main.scss";
+
 // Re-export all view components + metas so other TS/TSX files can do:
 //   import { MessengerComponent } from "./components";
 export * from "./components";
