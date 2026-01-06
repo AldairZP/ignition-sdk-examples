@@ -26,14 +26,9 @@ export const COMPONENT_TYPE = "rad.display.messenger";
  */
 export const MESSAGE_CONFIG_PROP = "messageConfig";
 
-interface MessagePropConfig {
-  [key: string]: any;
-}
 
 interface MessengerProps {
-  messageConfig: MessagePropConfig;
-  clicked: boolean;
-  clicks: number;
+  points: PointData[];
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -42,8 +37,8 @@ export const DEFAULT_MESSAGE_CONFIG: PointData[] = [{ id: "0", x: 1, y: 2 }];
  * Our Perspective component, written as a React functional component.
  */
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
-  console.log(props.props.messageConfig)
-  return <Plane points={props.props.messageConfig.points}/>;
+  console.log(props.props)
+  return <Plane points={props.props.points}/>;
 };
 
 // This is the actual thing that gets registered with the component registry.
@@ -66,9 +61,7 @@ export class MessengerComponentMeta implements ComponentMeta {
 
   getPropsReducer(tree: PropertyTree): MessengerProps {
     return {
-      messageConfig: tree.read("messageConfig"),
-      clicked: tree.readBoolean("clicked", false),
-      clicks: tree.readNumber("clicks", 0),
+      points: tree.read("points"),
     };
   }
 }
