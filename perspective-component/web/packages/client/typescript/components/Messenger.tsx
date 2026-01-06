@@ -26,19 +26,39 @@ export const COMPONENT_TYPE = "rad.display.messenger";
  */
 export const MESSAGE_CONFIG_PROP = "messageConfig";
 
-
-interface MessengerProps {
-  points: PointData[];
+interface MessengerPropsString {
+  points: string;
 }
+// interface MessengerProps {
+//   points: PointData[];
+// }
 
 // Default configuration in component props. Added here just as a useful reference.
 export const DEFAULT_MESSAGE_CONFIG: PointData[] = [{ id: "0", x: 1, y: 2 }];
 /**
  * Our Perspective component, written as a React functional component.
  */
-export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
-  console.log(props.props)
-  return <Plane points={props.props.points}/>;
+const onPointsChange = (
+  props: ComponentProps<MessengerPropsString>,
+  newPoints: string
+) => {
+  props.store.props.write("points", newPoints);
+};
+
+export const MessengerComponent = (
+  props: ComponentProps<MessengerPropsString>
+) => {
+  console.log(props.props.points);
+  const messageProps = JSON.parse(props.props.points);
+  console.log(props.props);
+  return (
+    <Plane
+      points={messageProps}
+      onPointsChange={(newPoints) => {
+        onPointsChange(props, JSON.stringify(newPoints));
+      }}
+    />
+  );
 };
 
 // This is the actual thing that gets registered with the component registry.
@@ -59,7 +79,7 @@ export class MessengerComponentMeta implements ComponentMeta {
     return MessengerComponent;
   }
 
-  getPropsReducer(tree: PropertyTree): MessengerProps {
+  getPropsReducer(tree: PropertyTree): MessengerPropsString {
     return {
       points: tree.read("points"),
     };
