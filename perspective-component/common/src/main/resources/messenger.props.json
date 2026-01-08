@@ -1,15 +1,72 @@
 {
     "type": "object",
     "properties": {
+        "buttons": {
+            "type": "boolean",
+            "default": false,
+            "description": "Set true to show the hidden 'conditional' property."
+        },
         "urlImage": {
             "type": "string",
             "description": "url of image to display on component.",
             "default": "/res/radcomponents/img/bananatime.gif"
         },
-        "points": {
+        "zoom": {
+            "type": "integer",
+            "description": "zoom",
+            "default": 3
+        },
+        "widthImage": {
+            "type": "integer",
+            "description": "width of image",
+            "default": 10
+        },
+        "heightImage": {
+            "type": "integer",
+            "description": "height of image",
+            "default": 10
+        },
+        "background": {
             "type": "string",
+            "description": "color of background",
+            "default": "#000"
+        },
+        "colorPoints": {
+            "type": "string",
+            "description": "color of points",
+            "default": "#fff"
+        },
+        "colorLine": {
+            "type": "string",
+            "description": "color of lines",
+            "default": "#333"
+        },
+        "subdivisions": {
+            "type": "integer",
+            "description": "number of subdivisions",
+            "default": 1
+        },
+        "points": {
+            "type": "array",
             "description": "Dynamic array of suggestions to use for another property.",
-            "default": "[{\"id\":0,\"x\":2,\"y\":1}]"
+            "properties": {
+                "point": {
+                    "type": "object",
+                    "description": "point of plane",
+                    "default": {
+                        "id": "0",
+                        "x": 1,
+                        "y": 1
+                    }
+                }
+            },
+            "default": [
+                {
+                    "id": "0",
+                    "x": 1,
+                    "y": 1
+                }
+            ]
         },
         "style": {
             "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
