@@ -4,11 +4,12 @@ import type { PointData } from "./types";
 
 interface EditablePointProps {
   point: PointData;
+  color?: string;
   onMove: (id: string, x: number, y: number) => void;
 }
 
-export function EditablePoint({ point, onMove }: EditablePointProps) {
-  const movable = useMovablePoint([point.x, point.y]);
+export function EditablePoint({ point, color, onMove }: EditablePointProps) {
+  const movable = useMovablePoint([point.x, point.y], {color});
   const [mx, my] = movable.point;
 
   useEffect(() => {

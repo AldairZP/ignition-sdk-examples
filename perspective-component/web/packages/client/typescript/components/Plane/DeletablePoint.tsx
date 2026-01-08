@@ -3,10 +3,11 @@ import type { PointData } from "./types";
 
 interface DeletablePointProps {
   point: PointData;
+  color?: string;
   onDelete: (id: string) => void;
 }
 
-export function DeletablePoint({ point, onDelete }: DeletablePointProps) {
+export function DeletablePoint({ point, color, onDelete }: DeletablePointProps) {
   return (
     <g
       onClick={(e) => {
@@ -15,7 +16,7 @@ export function DeletablePoint({ point, onDelete }: DeletablePointProps) {
       }}
       style={{ cursor: "pointer" }}
     >
-      <Point x={point.x} y={point.y} color="red" />
+      <Point x={point.x} y={point.y} color={color} />
     </g>
   );
 }

@@ -24,6 +24,8 @@ export interface PlaneProps {
   buttons?: boolean;
   zoomValue?: number;
   colorPoints?: string;
+  colorEditPoints?: string
+  colorDeletePoints?: string
 }
 
 export function Plane({
@@ -39,6 +41,8 @@ export function Plane({
   buttons = false,
   zoomValue = 3,
   colorPoints,
+  colorEditPoints,
+  colorDeletePoints,
 }: PlaneProps = {}) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const [containerHeight, setContainerHeight] = useState<number | undefined>(0);
@@ -87,12 +91,12 @@ export function Plane({
           />
           {currentPoints.map((p) => {
             if (mode === MODES.EDIT) {
-              return <EditablePoint key={p.id} point={p} onMove={movePoint} />;
+              return <EditablePoint color={colorEditPoints} key={p.id} point={p} onMove={movePoint} />;
             }
 
             if (mode === MODES.DELETE) {
               return (
-                <DeletablePoint key={p.id} point={p} onDelete={deletePoint} />
+                <DeletablePoint color={colorDeletePoints} key={p.id} point={p} onDelete={deletePoint} />
               );
             }
             return <Point color={colorPoints} key={p.id} x={p.x} y={p.y} />;

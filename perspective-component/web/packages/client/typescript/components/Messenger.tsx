@@ -40,6 +40,8 @@ interface MessengerProps {
   buttons: boolean;
   zoomValue: number;
   colorPoints: string;
+  colorEditPoints: string;
+  colorDeletePoints: string;
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -76,6 +78,8 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         buttons={props.props.buttons}
         zoomValue={props.props.zoomValue}
         colorPoints={props.props.colorPoints}
+        colorEditPoints={props.props.colorEditPoints}
+        colorDeletePoints={props.props.colorDeletePoints}
       />
     </div>
   );
@@ -115,6 +119,8 @@ export class MessengerComponentMeta implements ComponentMeta {
       buttons: tree.read("buttons", false),
       zoomValue: tree.read("zoom", 3),
       colorPoints: tree.read("colorPoints", "#fff"),
+      colorEditPoints: tree.read("colorEditPoints", "#EE00AB"),
+      colorDeletePoints: tree.read("colorDeletePoints", "#ff0000"),
     };
   }
 }

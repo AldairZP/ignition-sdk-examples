@@ -36,6 +36,16 @@
             "description": "color of points",
             "default": "#fff"
         },
+        "colorEditPoints": {
+            "type": "string",
+            "description": "color of points",
+            "default": "#EE00AB"
+        },
+        "colorDeletePoints": {
+            "type": "string",
+            "description": "color of points",
+            "default": "#FF0000"
+        },
         "colorLine": {
             "type": "string",
             "description": "color of lines",
