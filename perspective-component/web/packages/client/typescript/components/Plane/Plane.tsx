@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+// import { useEffect } from "react";
 import { Mafs, Coordinates, Point } from "mafs";
 
 import { MODES, type Mode, type PointData } from "./types";
@@ -24,8 +25,10 @@ export interface PlaneProps {
   buttons?: boolean;
   zoomValue?: number;
   colorPoints?: string;
-  colorEditPoints?: string
-  colorDeletePoints?: string
+  colorEditPoints?: string;
+  colorDeletePoints?: string;
+  panning?: boolean;
+  zooming?: boolean;
 }
 
 export function Plane({
@@ -43,9 +46,10 @@ export function Plane({
   colorPoints,
   colorEditPoints,
   colorDeletePoints,
+  panning,
+  zooming,
 }: PlaneProps = {}) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
-  const [containerHeight, setContainerHeight] = useState<number | undefined>(0);
   const {
     points: currentPoints,
     createPoint,
@@ -58,20 +62,17 @@ export function Plane({
     const [x, y] = point;
     createPoint(x, y);
   }
-  useEffect(() => {
-    const el = document.getElementById("container");
-    const newContainerHeight = el?.getBoundingClientRect().height;
-    setContainerHeight(newContainerHeight);
-  }, []);
-  console.log(containerHeight);
+  const el = document.getElementById("container");
+  const newContainerHeight = el?.getBoundingClientRect().height;
   return (
     <div className="container">
       {buttons && <ModeSelector currentMode={mode} onModeChange={setMode} />}
 
       <div id="container">
         <Mafs
-          zoom={{ min: 0.2, max: 10 }}
-          height={containerHeight}
+          pan={panning}
+          zoom={zooming ? { min: 0.2, max: 10 } : zooming}
+          height={newContainerHeight}
           width={"auto"}
           viewBox={{ x: [-zoomValue, zoomValue], y: [-zoomValue, zoomValue] }}
           onClick={(point: [number, number]) => handleMafsClick(point)}
@@ -91,12 +92,24 @@ export function Plane({
           />
           {currentPoints.map((p) => {
             if (mode === MODES.EDIT) {
-              return <EditablePoint color={colorEditPoints} key={p.id} point={p} onMove={movePoint} />;
+              return (
+                <EditablePoint
+                  color={colorEditPoints}
+                  key={p.id}
+                  point={p}
+                  onMove={movePoint}
+                />
+              );
             }
 
             if (mode === MODES.DELETE) {
               return (
-                <DeletablePoint color={colorDeletePoints} key={p.id} point={p} onDelete={deletePoint} />
+                <DeletablePoint
+                  color={colorDeletePoints}
+                  key={p.id}
+                  point={p}
+                  onDelete={deletePoint}
+                />
               );
             }
             return <Point color={colorPoints} key={p.id} x={p.x} y={p.y} />;

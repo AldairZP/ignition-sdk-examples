@@ -42,6 +42,8 @@ interface MessengerProps {
   colorPoints: string;
   colorEditPoints: string;
   colorDeletePoints: string;
+  panning: boolean;
+  zooming: boolean;
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -58,10 +60,6 @@ const onPointsChange = (
 };
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
-  // console.log(props.props.points);
-  // const messageProps = JSON.parse(props.props.points);
-  console.log(props.props);
-  //  {...this.props.emit({ classes: ["messenger-component"] })}
   return (
     <div {...props.emit({ classes: ["messenger-component"] })}>
       <Plane
@@ -80,6 +78,8 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         colorPoints={props.props.colorPoints}
         colorEditPoints={props.props.colorEditPoints}
         colorDeletePoints={props.props.colorDeletePoints}
+        panning={props.props.panning}
+        zooming={props.props.zooming}
       />
     </div>
   );
@@ -121,6 +121,8 @@ export class MessengerComponentMeta implements ComponentMeta {
       colorPoints: tree.read("colorPoints", "#fff"),
       colorEditPoints: tree.read("colorEditPoints", "#EE00AB"),
       colorDeletePoints: tree.read("colorDeletePoints", "#ff0000"),
+      panning: tree.read("panning", false),
+      zooming: tree.read("zooming", false),
     };
   }
 }

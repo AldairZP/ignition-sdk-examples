@@ -6,15 +6,25 @@
             "default": false,
             "description": "Set true to show the hidden 'conditional' property."
         },
-        "urlImage": {
-            "type": "string",
-            "description": "url of image to display on component.",
-            "default": "/res/radcomponents/img/bananatime.gif"
+        "panning": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to enable panning with the mouse and keyboard"
+        },
+        "zooming": {
+            "type": "boolean",
+            "description": "zooming",
+            "default": true
         },
         "zoom": {
             "type": "integer",
             "description": "zoom",
             "default": 3
+        },
+        "urlImage": {
+            "type": "string",
+            "description": "url of image to display on component.",
+            "default": "/res/radcomponents/img/bananatime.gif"
         },
         "widthImage": {
             "type": "integer",
