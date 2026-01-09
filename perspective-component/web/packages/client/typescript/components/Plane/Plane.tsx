@@ -29,6 +29,7 @@ export interface PlaneProps {
   colorDeletePoints?: string;
   panning?: boolean;
   zooming?: boolean;
+  height?: number;
 }
 
 export function Plane({
@@ -48,6 +49,7 @@ export function Plane({
   colorDeletePoints,
   panning,
   zooming,
+  height,
 }: PlaneProps = {}) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
@@ -62,17 +64,44 @@ export function Plane({
     const [x, y] = point;
     createPoint(x, y);
   }
-  const el = document.getElementById("container");
+  const el = document.getElementById("container-mafs");
   const newContainerHeight = el?.getBoundingClientRect().height;
+  console.log(newContainerHeight);
   return (
-    <div className="container">
+    <div className="container" id="container-mafs">
       {buttons && <ModeSelector currentMode={mode} onModeChange={setMode} />}
 
-      <div id="container">
+      <div
+        style={{
+          display: "flex",
+          height:
+            height === undefined
+              ? buttons
+                ? newContainerHeight && newContainerHeight - 49
+                : newContainerHeight && newContainerHeight - 4
+              : buttons
+              ? height && height - 45
+              : height,
+
+          width: "100%",
+          padding: 0,
+          margin: 0,
+        }}
+      >
         <Mafs
           pan={panning}
           zoom={zooming ? { min: 0.2, max: 10 } : zooming}
-          height={newContainerHeight}
+          // height={newContainerHeight && newContainerHeight - 45}
+          // height={buttons ? height && height - 45 : height}
+          height={
+            height === undefined
+              ? buttons
+                ? newContainerHeight && newContainerHeight - 49
+                : newContainerHeight && newContainerHeight - 4
+              : buttons
+              ? height && height - 45
+              : height
+          }
           width={"auto"}
           viewBox={{ x: [-zoomValue, zoomValue], y: [-zoomValue, zoomValue] }}
           onClick={(point: [number, number]) => handleMafsClick(point)}

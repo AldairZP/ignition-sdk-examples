@@ -13,8 +13,10 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
           key={m}
           onClick={() => onModeChange(m)}
           style={{
+            display: "inline-block",
+            height: "35px",
             marginRight: 6,
-            padding: "8px 16px",
+            padding: "0 16px",
             fontWeight: currentMode === m ? "bold" : "normal",
             backgroundColor: currentMode === m ? "#4CAF50" : "#e0e0e0",
             color: currentMode === m ? "white" : "black",

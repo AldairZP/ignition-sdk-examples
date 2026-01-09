@@ -60,8 +60,13 @@ const onPointsChange = (
 };
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
+  const height = props.emit({classes: ["messenger-component"]})["style"]["height"]
+  console.log(props.emit({classes: ["messenger-component"]})["style"])
   return (
-    <div {...props.emit({ classes: ["messenger-component"] })}>
+    <div
+      id="plane-container"
+      {...props.emit({ classes: ["messenger-component"] })}
+    >
       <Plane
         points={props.props.points}
         onPointsChange={(newPoints) => {
@@ -80,6 +85,7 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         colorDeletePoints={props.props.colorDeletePoints}
         panning={props.props.panning}
         zooming={props.props.zooming}
+        height={height}
       />
     </div>
   );
@@ -87,9 +93,9 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
 
 // This is the actual thing that gets registered with the component registry.
 export class MessengerComponentMeta implements ComponentMeta {
-  isContainer = true;
-  isDeepSelectable = true;
-  focusRootOnly = true;
+  // isContainer = true;
+  // isDeepSelectable = true;
+  // focusRootOnly = true;
 
   getComponentType(): string {
     return COMPONENT_TYPE;
