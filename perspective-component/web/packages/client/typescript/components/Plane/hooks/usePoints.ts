@@ -39,7 +39,9 @@ export function usePoints(options: UsePointsOptions = {}) {
 
   const createPoint = useCallback(
     (x: number, y: number) => {
-      setPoints((prev) => [...prev, { id: crypto.randomUUID(), x, y }]);
+      const newPoint: PointData = { id: crypto.randomUUID(), x, y };
+      setPoints((prev) => [...prev, newPoint]);
+      return newPoint;
     },
     [setPoints]
   );

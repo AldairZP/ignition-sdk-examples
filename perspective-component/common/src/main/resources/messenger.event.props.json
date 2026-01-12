@@ -1,0 +1,57 @@
+{
+    "type": "object",
+    "properties": {
+        "point": {
+            "type": "object",
+            "description": "Point that triggered the interaction.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the point."
+                },
+                "x": {
+                    "type": "number",
+                    "description": "X coordinate within the plane."
+                },
+                "y": {
+                    "type": "number",
+                    "description": "Y coordinate within the plane."
+                }
+            },
+            "required": [
+                "id",
+                "x",
+                "y"
+            ]
+        },
+        "points": {
+            "type": "array",
+            "description": "Snapshot of all points after the event.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the point."
+                    },
+                    "x": {
+                        "type": "number",
+                        "description": "X coordinate within the plane."
+                    },
+                    "y": {
+                        "type": "number",
+                        "description": "Y coordinate within the plane."
+                    }
+                },
+                "required": [
+                    "id",
+                    "x",
+                    "y"
+                ]
+            }
+        }
+    },
+    "required": [
+        "point"
+    ]
+}

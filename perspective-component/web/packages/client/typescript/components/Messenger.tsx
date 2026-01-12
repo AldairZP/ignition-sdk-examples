@@ -49,6 +49,9 @@ interface MessengerProps {
 // Default configuration in component props. Added here just as a useful reference.
 // export const DEFAULT_MESSAGE_CONFIG: PointData[] = [{ id: "0", x: 1, y: 2 }];
 export const DEFAULT_MESSAGE_CONFIG: PointData[] = [];
+const POINT_CREATED_EVENT = "onPointCreated";
+const POINT_RELEASED_EVENT = "onPointReleased";
+const POINT_DELETED_EVENT = "onPointDeleted";
 /**
  * Our Perspective component, written as a React functional component.
  */
@@ -86,6 +89,24 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         panning={props.props.panning}
         zooming={props.props.zooming}
         height={height}
+        onPointCreated={(point, nextPoints) =>
+          props.componentEvents.fireComponentEvent(POINT_CREATED_EVENT, {
+            point,
+            points: nextPoints,
+          })
+        }
+        onPointReleased={(point, nextPoints) =>
+          props.componentEvents.fireComponentEvent(POINT_RELEASED_EVENT, {
+            point,
+            points: nextPoints,
+          })
+        }
+        onPointDeleted={(point, nextPoints) =>
+          props.componentEvents.fireComponentEvent(POINT_DELETED_EVENT, {
+            point,
+            points: nextPoints,
+          })
+        }
       />
     </div>
   );

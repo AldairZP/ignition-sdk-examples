@@ -30,6 +30,9 @@ export interface PlaneProps {
   panning?: boolean;
   zooming?: boolean;
   height?: number;
+  onPointCreated?: (point: PointData, points: PointData[]) => void;
+  onPointReleased?: (point: PointData, points: PointData[]) => void;
+  onPointDeleted?: (point: PointData, points: PointData[]) => void;
 }
 
 export function Plane({
@@ -50,6 +53,9 @@ export function Plane({
   panning,
   zooming,
   height,
+  onPointCreated,
+  onPointReleased,
+  onPointDeleted,
 }: PlaneProps = {}) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
@@ -59,11 +65,43 @@ export function Plane({
     deletePoint,
   } = usePoints({ initialPoints, points, onPointsChange });
 
+
   function handleMafsClick(point: [number, number]) {
     if (mode !== MODES.CREATE) return;
     const [x, y] = point;
-    createPoint(x, y);
+    const createdPoint = createPoint(x, y);
+    if (onPointCreated) {
+      const updatedPoints = [...currentPoints, createdPoint];
+      onPointCreated(createdPoint, updatedPoints);
+    }
   }
+
+
+  const handlePointReleased = (id: string, x: number, y: number) => {
+    if (!onPointReleased) {
+      return;
+    }
+    const releasedPoint: PointData = { id, x, y };
+    const updatedPoints = currentPoints.map((pt) =>
+      pt.id === id ? releasedPoint : pt
+    );
+    onPointReleased(releasedPoint, updatedPoints);
+  };
+
+
+  const handlePointDeleted = (id: string, x: number, y: number) => {
+    if (!onPointDeleted) {
+      return;
+    }
+    const deletedPoint: PointData = { id, x, y };
+    const updatedPoints = currentPoints.filter((pt) =>
+      pt.id != id 
+    );
+    onPointDeleted(deletedPoint, updatedPoints);
+    deletePoint(id);
+  };
+
+  
   const el = document.getElementById("container-mafs");
   const newContainerHeight = el?.getBoundingClientRect().height;
   console.log(newContainerHeight);
@@ -91,8 +129,6 @@ export function Plane({
         <Mafs
           pan={panning}
           zoom={zooming ? { min: 0.2, max: 10 } : zooming}
-          // height={newContainerHeight && newContainerHeight - 45}
-          // height={buttons ? height && height - 45 : height}
           height={
             height === undefined
               ? buttons
@@ -127,6 +163,7 @@ export function Plane({
                   key={p.id}
                   point={p}
                   onMove={movePoint}
+                  onRelease={handlePointReleased}
                 />
               );
             }
@@ -137,7 +174,7 @@ export function Plane({
                   color={colorDeletePoints}
                   key={p.id}
                   point={p}
-                  onDelete={deletePoint}
+                  onDelete={handlePointDeleted}
                 />
               );
             }
