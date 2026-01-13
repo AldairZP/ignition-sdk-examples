@@ -2,6 +2,7 @@ export interface PointData {
   id: string;
   x: number;
   y: number;
+  color?: string;
 }
 
 export const MODES = {

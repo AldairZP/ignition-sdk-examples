@@ -59,11 +59,22 @@ const onPointsChange = (
   props: ComponentProps<MessengerProps>,
   newPoints: PointData[]
 ) => {
-  props.store.props.write("points", newPoints);
+  const defaultColorProp = "";
+  props.store.props.write(
+    "points",
+    newPoints.map((item) => {
+      if (item.color === undefined) {
+        item.color = defaultColorProp;
+      }
+      return item;
+    })
+  );
 };
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
-  const height = props.emit({classes: ["messenger-component"]})["style"]["height"]
+  const height = props.emit({ classes: ["messenger-component"] })["style"][
+    "height"
+  ];
   return (
     <div
       id="plane-container"
@@ -113,15 +124,14 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
 
 // This is the actual thing that gets registered with the component registry.
 export class MessengerComponentMeta implements ComponentMeta {
-
   getComponentType(): string {
     return COMPONENT_TYPE;
   }
 
   getDefaultSize(): SizeObject {
     return {
-      width: 120,
-      height: 90,
+      width: 300,
+      height: 300,
     };
   }
 

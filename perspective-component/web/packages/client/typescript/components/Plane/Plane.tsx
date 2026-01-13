@@ -81,7 +81,7 @@ export function Plane({
     if (!onPointReleased) {
       return;
     }
-    const releasedPoint: PointData = { id, x, y };
+    const releasedPoint: PointData = { id, x, y};
     const updatedPoints = currentPoints.map((pt) =>
       pt.id === id ? releasedPoint : pt
     );
@@ -177,7 +177,7 @@ export function Plane({
                 />
               );
             }
-            return <Point color={colorPoints} key={p.id} x={p.x} y={p.y} />;
+            return <Point color={p.color === undefined || p.color === "" ? colorPoints : p.color} key={p.id} x={p.x} y={p.y} />;
           })}
           <style type="text/css">
             {`.MafsView{` +
