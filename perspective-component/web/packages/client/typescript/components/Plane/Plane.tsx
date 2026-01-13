@@ -104,7 +104,6 @@ export function Plane({
   
   const el = document.getElementById("container-mafs");
   const newContainerHeight = el?.getBoundingClientRect().height;
-  console.log(newContainerHeight);
   return (
     <div className="container" id="container-mafs">
       {buttons && <ModeSelector currentMode={mode} onModeChange={setMode} />}

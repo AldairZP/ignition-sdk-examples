@@ -20,38 +20,39 @@ export function EditablePoint({
   const draggingRef = useRef(false);
   const latestCoordsRef = useRef({ x: point.x, y: point.y });
 
+
+
   useEffect(() => {
     if (mx !== point.x || my !== point.y) {
       onMove(point.id, mx, my);
+      draggingRef.current = true;
     }
   }, [mx, my, onMove, point.id, point.x, point.y]);
+
 
   useEffect(() => {
     latestCoordsRef.current = { x: mx, y: my };
   }, [mx, my]);
 
+
   useEffect(() => {
-    const handlePointerUp = () => {
-      if (!draggingRef.current) {
-        return;
-      }
-      draggingRef.current = false;
-      onRelease?.(
-        point.id,
-        latestCoordsRef.current.x,
-        latestCoordsRef.current.y
-      );
-    };
-
-    window.addEventListener("pointerup", handlePointerUp);
+    el?.addEventListener("mouseup", handlePointerUp);
     return () => {
-      window.removeEventListener("pointerup", handlePointerUp);
+      el?.removeEventListener("mouseup", handlePointerUp);
     };
-  }, [onRelease, point.id]);
+  }, [point.id]);
 
-  const handlePointerDown = () => {
-    draggingRef.current = true;
+
+
+
+  const handlePointerUp = () => {
+    if (draggingRef.current === false) {
+      return;
+    }
+    
+    draggingRef.current = false;
+    onRelease?.(point.id, latestCoordsRef.current.x, latestCoordsRef.current.y);
   };
-
-  return <g onPointerDown={handlePointerDown}>{movable.element}</g>;
+  const el = document.getElementById("container-mafs");
+  return movable.element;
 }
