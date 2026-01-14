@@ -1,5 +1,7 @@
 package org.fakester.designer;
 
+import org.fakester.common.component.display.Messenger;
+
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
@@ -8,8 +10,6 @@ import com.inductiveautomation.ignition.designer.model.DesignerContext;
 import com.inductiveautomation.perspective.designer.DesignerComponentRegistry;
 import com.inductiveautomation.perspective.designer.api.ComponentDesignDelegateRegistry;
 import com.inductiveautomation.perspective.designer.api.PerspectiveDesignerInterface;
-import org.fakester.common.component.display.Messenger;
-
 
 /**
  * The 'hook' class for the designer scope of the module.  Registered in the ignitionModule configuration of the
