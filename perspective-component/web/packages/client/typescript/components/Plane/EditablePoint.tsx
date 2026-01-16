@@ -7,6 +7,7 @@ interface EditablePointProps {
   color?: string;
   onMove: (id: string, x: number, y: number) => void;
   onRelease?: (id: string, x: number, y: number) => void;
+  selectedPoint?: (point: PointData) => void;
 }
 
 export function EditablePoint({
@@ -14,13 +15,12 @@ export function EditablePoint({
   color,
   onMove,
   onRelease,
+  selectedPoint,
 }: EditablePointProps) {
   const movable = useMovablePoint([point.x, point.y], { color });
   const [mx, my] = movable.point;
   const draggingRef = useRef(false);
   const latestCoordsRef = useRef({ x: point.x, y: point.y });
-
-
 
   useEffect(() => {
     if (mx !== point.x || my !== point.y) {
@@ -29,30 +29,20 @@ export function EditablePoint({
     }
   }, [mx, my, onMove, point.id, point.x, point.y]);
 
-
   useEffect(() => {
     latestCoordsRef.current = { x: mx, y: my };
   }, [mx, my]);
 
-
-  useEffect(() => {
-    el?.addEventListener("mouseup", handlePointerUp);
-    return () => {
-      el?.removeEventListener("mouseup", handlePointerUp);
-    };
-  }, [point.id]);
-
-
-
-
-  const handlePointerUp = () => {
-    if (draggingRef.current === false) {
+  const setSelectedPoint = () => {
+    if (!selectedPoint) {
       return;
     }
-    
-    draggingRef.current = false;
+    selectedPoint(point);
+  };
+
+  const handlePointerUp = () => {
     onRelease?.(point.id, latestCoordsRef.current.x, latestCoordsRef.current.y);
   };
-  const el = document.getElementById("container-mafs");
-  return movable.element;
+
+  return <g onMouseDown={setSelectedPoint} onMouseUp={handlePointerUp}>{movable.element}</g>;
 }

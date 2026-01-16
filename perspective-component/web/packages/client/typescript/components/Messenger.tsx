@@ -44,6 +44,7 @@ interface MessengerProps {
   colorDeletePoints: string;
   panning: boolean;
   zooming: boolean;
+  selectedPoint: PointData;
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -70,6 +71,12 @@ const onPointsChange = (
     })
   );
 };
+
+const setSelectedPoint = (props: ComponentProps<MessengerProps>, point: PointData) => {
+  props.store.props.write("selected-point", point)
+}
+
+
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
   const height = props.emit({ classes: ["messenger-component"] })["style"][
@@ -117,6 +124,10 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
             points: nextPoints,
           })
         }
+        setSelectedPoint={(point: PointData) => {
+          setSelectedPoint(props, point)
+        }
+        }
       />
     </div>
   );
@@ -156,6 +167,7 @@ export class MessengerComponentMeta implements ComponentMeta {
       colorDeletePoints: tree.read("colorDeletePoints", "#ff0000"),
       panning: tree.read("panning", false),
       zooming: tree.read("zooming", false),
+      selectedPoint: tree.read("selected-point", {}),
     };
   }
 }

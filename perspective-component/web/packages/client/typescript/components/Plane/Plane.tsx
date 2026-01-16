@@ -33,6 +33,7 @@ export interface PlaneProps {
   onPointCreated?: (point: PointData, points: PointData[]) => void;
   onPointReleased?: (point: PointData, points: PointData[]) => void;
   onPointDeleted?: (point: PointData, points: PointData[]) => void;
+  setSelectedPoint?: (point: PointData) => void;
 }
 
 export function Plane({
@@ -56,6 +57,7 @@ export function Plane({
   onPointCreated,
   onPointReleased,
   onPointDeleted,
+  setSelectedPoint,
 }: PlaneProps = {}) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
@@ -65,43 +67,41 @@ export function Plane({
     deletePoint,
   } = usePoints({ initialPoints, points, onPointsChange });
 
-
   function handleMafsClick(point: [number, number]) {
+    if (!setSelectedPoint) {
+      return;
+    }
     if (mode !== MODES.CREATE) return;
     const [x, y] = point;
     const createdPoint = createPoint(x, y);
     if (onPointCreated) {
       const updatedPoints = [...currentPoints, createdPoint];
+      setSelectedPoint(createdPoint);
       onPointCreated(createdPoint, updatedPoints);
     }
   }
-
 
   const handlePointReleased = (id: string, x: number, y: number) => {
     if (!onPointReleased) {
       return;
     }
-    const releasedPoint: PointData = { id, x, y};
+    const releasedPoint: PointData = { id, x, y };
     const updatedPoints = currentPoints.map((pt) =>
       pt.id === id ? releasedPoint : pt
     );
     onPointReleased(releasedPoint, updatedPoints);
   };
 
-
   const handlePointDeleted = (id: string, x: number, y: number) => {
     if (!onPointDeleted) {
       return;
     }
     const deletedPoint: PointData = { id, x, y };
-    const updatedPoints = currentPoints.filter((pt) =>
-      pt.id != id 
-    );
+    const updatedPoints = currentPoints.filter((pt) => pt.id != id);
     onPointDeleted(deletedPoint, updatedPoints);
     deletePoint(id);
   };
 
-  
   const el = document.getElementById("container-mafs");
   const newContainerHeight = el?.getBoundingClientRect().height;
   return (
@@ -163,6 +163,7 @@ export function Plane({
                   point={p}
                   onMove={movePoint}
                   onRelease={handlePointReleased}
+                  selectedPoint={setSelectedPoint}
                 />
               );
             }
@@ -177,7 +178,18 @@ export function Plane({
                 />
               );
             }
-            return <Point color={p.color === undefined || p.color === "" ? colorPoints : p.color} key={p.id} x={p.x} y={p.y} />;
+            return (
+              <Point
+                color={
+                  p.color === undefined || p.color === ""
+                    ? colorPoints
+                    : p.color
+                }
+                key={p.id}
+                x={p.x}
+                y={p.y}
+              />
+            );
           })}
           <style type="text/css">
             {`.MafsView{` +
