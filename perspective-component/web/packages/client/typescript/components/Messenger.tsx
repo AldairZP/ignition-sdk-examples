@@ -36,15 +36,16 @@ interface MessengerProps {
   heightImage: number;
   background: string;
   colorLine: string;
-  subdivisions: number;
-  buttons: boolean;
-  zoomValue: number;
   colorPoints: string;
   colorEditPoints: string;
   colorDeletePoints: string;
+  subdivisions: number;
+  buttons: boolean;
+  zoomValue: number;
   panning: boolean;
   zooming: boolean;
   selectedPoint: PointData;
+  createPoint: boolean;
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -72,11 +73,12 @@ const onPointsChange = (
   );
 };
 
-const setSelectedPoint = (props: ComponentProps<MessengerProps>, point: PointData) => {
-  props.store.props.write("selected-point", point)
-}
-
-
+const setSelectedPoint = (
+  props: ComponentProps<MessengerProps>,
+  point: PointData
+) => {
+  props.store.props.write("selected-point", point);
+};
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
   const height = props.emit({ classes: ["messenger-component"] })["style"][
@@ -88,7 +90,7 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
       {...props.emit({ classes: ["messenger-component"] })}
     >
       <Plane
-        points={props.props.points}
+        points={Array.isArray(props.props.points) ? props.props.points : []}
         onPointsChange={(newPoints) => {
           onPointsChange(props, newPoints);
         }}
@@ -125,9 +127,9 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
           })
         }
         setSelectedPoint={(point: PointData) => {
-          setSelectedPoint(props, point)
-        }
-        }
+          setSelectedPoint(props, point);
+        }}
+        createPoint={props.props.createPoint}
       />
     </div>
   );
@@ -152,22 +154,38 @@ export class MessengerComponentMeta implements ComponentMeta {
   }
 
   getPropsReducer(tree: PropertyTree): MessengerProps {
+    const colors = {
+      background: "#000",
+      colorLine: "#333",
+      colorPoints: "#AAADDD",
+      colorEditPoints: "#EE00AB",
+      colorDeletePoints: "#FF0000",
+    };
+    const {
+      background,
+      colorLine,
+      colorPoints,
+      colorEditPoints,
+      colorDeletePoints,
+    } = tree.read("colors", colors);
+
     return {
       points: tree.read("points", DEFAULT_MESSAGE_CONFIG),
       urlImage: tree.read("urlImage", undefined),
       widthImage: tree.read("widthImage", 0),
       heightImage: tree.read("heightImage", 0),
-      background: tree.read("background", "#000"),
-      colorLine: tree.read("colorLine", "#333"),
+      background,
+      colorLine,
+      colorPoints,
+      colorEditPoints,
+      colorDeletePoints,
       subdivisions: tree.read("subdivisions", 1),
       buttons: tree.read("buttons", false),
       zoomValue: tree.read("zoom", 3),
-      colorPoints: tree.read("colorPoints", "#fff"),
-      colorEditPoints: tree.read("colorEditPoints", "#EE00AB"),
-      colorDeletePoints: tree.read("colorDeletePoints", "#ff0000"),
       panning: tree.read("panning", false),
       zooming: tree.read("zooming", false),
       selectedPoint: tree.read("selected-point", {}),
+      createPoint: tree.read("createPoint", true),
     };
   }
 }

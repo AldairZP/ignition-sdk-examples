@@ -30,10 +30,11 @@ export interface PlaneProps {
   panning?: boolean;
   zooming?: boolean;
   height?: number;
-  onPointCreated?: (point: PointData, points: PointData[]) => void;
-  onPointReleased?: (point: PointData, points: PointData[]) => void;
-  onPointDeleted?: (point: PointData, points: PointData[]) => void;
-  setSelectedPoint?: (point: PointData) => void;
+  createPoint?: boolean;
+  onPointCreated: (point: PointData, points: PointData[]) => void;
+  onPointReleased: (point: PointData, points: PointData[]) => void;
+  onPointDeleted: (point: PointData, points: PointData[]) => void;
+  setSelectedPoint: (point: PointData) => void;
 }
 
 export function Plane({
@@ -58,33 +59,33 @@ export function Plane({
   onPointReleased,
   onPointDeleted,
   setSelectedPoint,
-}: PlaneProps = {}) {
+  createPoint = false,
+}: PlaneProps) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
     points: currentPoints,
-    createPoint,
+    createPoint: createPointInternal,
     movePoint,
     deletePoint,
   } = usePoints({ initialPoints, points, onPointsChange });
 
   function handleMafsClick(point: [number, number]) {
-    if (!setSelectedPoint) {
-      return;
-    }
     if (mode !== MODES.CREATE) return;
     const [x, y] = point;
-    const createdPoint = createPoint(x, y);
-    if (onPointCreated) {
-      const updatedPoints = [...currentPoints, createdPoint];
-      setSelectedPoint(createdPoint);
-      onPointCreated(createdPoint, updatedPoints);
+
+    if (!createPoint) {
+      const newPoint: PointData = { id: crypto.randomUUID(), x, y };
+      setSelectedPoint(newPoint);
+      onPointCreated(newPoint, currentPoints);
+      return;
     }
+    const createdPoint = createPointInternal(x, y);
+    const updatedPoints = [...currentPoints, createdPoint];
+    setSelectedPoint(createdPoint);
+    onPointCreated(createdPoint, updatedPoints);
   }
 
   const handlePointReleased = (id: string, x: number, y: number) => {
-    if (!onPointReleased) {
-      return;
-    }
     const releasedPoint: PointData = { id, x, y };
     const updatedPoints = currentPoints.map((pt) =>
       pt.id === id ? releasedPoint : pt
@@ -93,9 +94,6 @@ export function Plane({
   };
 
   const handlePointDeleted = (id: string, x: number, y: number) => {
-    if (!onPointDeleted) {
-      return;
-    }
     const deletedPoint: PointData = { id, x, y };
     const updatedPoints = currentPoints.filter((pt) => pt.id != id);
     onPointDeleted(deletedPoint, updatedPoints);

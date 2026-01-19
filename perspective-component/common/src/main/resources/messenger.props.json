@@ -6,6 +6,11 @@
             "default": true,
             "description": "Set true to show the hidden 'conditional' property."
         },
+        "createPoint": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to enable point creation on click"
+        },
         "panning": {
             "type": "boolean",
             "default": true,
@@ -20,6 +25,18 @@
             "type": "integer",
             "description": "zoom",
             "default": 3
+        },
+        "subdivisions": {
+            "type": "integer",
+            "description": "number of subdivisions",
+            "default": 1,
+            "suggestions": {
+                "0": 0,
+                "1": 1,
+                "2": 2,
+                "3": 3,
+                "4": 4
+            }
         },
         "urlImage": {
             "type": "string",
@@ -36,67 +53,90 @@
             "description": "height of image",
             "default": 10
         },
-        "background": {
-            "type": "string",
-            "description": "color of background",
-            "default": "#000"
-        },
-        "colorPoints": {
-            "type": "string",
-            "description": "color of points",
-            "default": "#fff"
-        },
-        "colorEditPoints": {
-            "type": "string",
-            "description": "color of points",
-            "default": "#EE00AB"
-        },
-        "colorDeletePoints": {
-            "type": "string",
-            "description": "color of points",
-            "default": "#FF0000"
-        },
-        "colorLine": {
-            "type": "string",
-            "description": "color of lines",
-            "default": "#333"
-        },
-        "subdivisions": {
-            "type": "integer",
-            "description": "number of subdivisions",
-            "default": 1
-        },
         "selected-point": {
             "type": "object",
             "description": "selected Point",
-            "required": [
-                "id",
-                "x",
-                "y",
-                "color"
-            ],
-            "default": {
-
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier for the point."
+                },
+                "x": {
+                    "type": "number",
+                    "description": "X coordinate within the plane."
+                },
+                "y": {
+                    "type": "number",
+                    "description": "Y coordinate within the plane."
+                },
+                "color": {
+                    "type": "string",
+                    "description": "color of point",
+                    "format": "color"
+                }
+            },
+            "default": {}
+        },
+        "colors": {
+            "type": "object",
+            "description": "All about colors",
+            "minimize": true,
+            "properties": {
+                "background": {
+                    "type": "string",
+                    "description": "color of background",
+                    "format": "color",
+                    "default": "#000"
+                },
+                "colorPoints": {
+                    "type": "string",
+                    "description": "color of points",
+                    "format": "color",
+                    "default": "#AAADDD"
+                },
+                "colorEditPoints": {
+                    "type": "string",
+                    "description": "color of points",
+                    "format": "color",
+                    "default": "#EE00AB"
+                },
+                "colorDeletePoints": {
+                    "type": "string",
+                    "description": "color of points",
+                    "format": "color",
+                    "default": "#FF0000"
+                },
+                "colorLine": {
+                    "type": "string",
+                    "description": "color of lines",
+                    "format": "color",
+                    "default": "#333"
+                }
             }
         },
         "points": {
             "type": "array",
             "description": "Dynamic array of suggestions to use for another property.",
-            "properties": {
-                "point": {
-                    "type": "object",
-                    "description": "point of plane",
-                    "required": [
-                        "id",
-                        "x",
-                        "y",
-                        "color"
-                    ],
-                    "default": {
-                        "id": "",
-                        "x": 0,
-                        "y": 0,
-                        "color": "#888"
+            "items": {
+                "type": "object",
+                "description": "point of plane",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the point."
+                    },
+                    "x": {
+                        "type": "number",
+                        "description": "X coordinate within the plane."
+                    },
+                    "y": {
+                        "type": "number",
+                        "description": "Y coordinate within the plane."
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "color of point",
+                        "format": "color"
                     }
                 }
             },
