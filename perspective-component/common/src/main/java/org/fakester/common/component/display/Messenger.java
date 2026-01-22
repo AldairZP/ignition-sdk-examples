@@ -9,10 +9,12 @@ import com.inductiveautomation.perspective.common.api.ComponentDescriptor;
 import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;
 import com.inductiveautomation.perspective.common.api.ComponentEventDescriptor;
 
-
 /**
  * Common meta information about the Messenger component. See {@link Image} for docs on each field.
  */
+
+
+
 public class Messenger {
     public static final String COMPONENT_ID = "rad.display.messenger";
 

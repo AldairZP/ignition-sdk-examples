@@ -10,12 +10,20 @@
 import {
   ComponentMeta,
   ComponentProps,
+  ComponentStore,
+  JsObject,
+  PageStore,
   // PComponent,
   PropertyTree,
   SizeObject,
+  StyleObject,
 } from "@inductiveautomation/perspective-client";
 import { Plane } from "./Plane";
 import { type PointData } from "./Plane/types";
+import { DelegateEmbeddedView } from "./EmbeddedView/DelegateEmbeddedView";
+import { FlexPositionProps } from "./EmbeddedView/types";
+import resolve from "../util/resolve";
+import mergeStyles from "../util/mergeStyles";
 
 // The 'key' or 'id' for this component type. Component must be registered with this EXACT key in the Java side as well
 // as on the client side.
@@ -26,9 +34,17 @@ export const COMPONENT_TYPE = "rad.display.messenger";
  */
 export const MESSAGE_CONFIG_PROP = "messageConfig";
 
-// interface MessengerPropsString {
-//   points: string;
-// }
+type EmbeddedViewProps = {
+  key: string
+  viewPath: string
+  viewParams: JsObject
+  viewStyle: StyleObject
+  viewPosition: FlexPositionProps
+  useDefaultHeight: boolean
+  useDefaultMinHeight: boolean
+  useDefaultMinWidth: boolean
+  useDefaultWidth: boolean
+}
 interface MessengerProps {
   points: PointData[];
   urlImage: string;
@@ -46,7 +62,71 @@ interface MessengerProps {
   zooming: boolean;
   selectedPoint: PointData;
   createPoint: boolean;
+  instances: EmbeddedViewProps[]
+  instanceCommon: EmbeddedViewProps
 }
+type FlexRepeaterSettings = {
+  direction: 'row' | 'row-reverse' | 'column' | 'column-reverse'
+  wrap: 'nowrap' | 'wrap' | 'wrap-reverse'
+  justify:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
+  alignItems: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
+  alignContent:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'stretch'
+}
+type FlexRepeaterProps = {
+  instances: EmbeddedViewProps[]
+  instanceCommon: EmbeddedViewProps
+  settings?: FlexRepeaterSettings
+  style?: StyleObject
+}
+function getChildMountPath(store: ComponentStore, key: string) {
+  return `${store.viewMountPath}$${store.addressPathString}.${key}`
+}
+function resolveViewProps(
+  props: FlexRepeaterProps,
+  index: number
+): EmbeddedViewProps {
+  const view = props.instances[index]
+
+  return {
+    key: view.key && view.key !== '' ? view.key : index.toString(),
+    viewPath: resolve([view.viewPath, props.instanceCommon.viewPath]),
+    viewParams: {},
+    viewStyle: mergeStyles([props.instanceCommon.viewStyle, view.viewStyle]),
+    viewPosition: {
+      ...props.instanceCommon.viewPosition,
+      ...view.viewPosition,
+    },
+    useDefaultHeight: resolve([
+      view.useDefaultHeight,
+      props.instanceCommon.useDefaultHeight,
+    ]),
+    useDefaultMinHeight: resolve([
+      view.useDefaultMinHeight,
+      props.instanceCommon.useDefaultMinHeight,
+    ]),
+    useDefaultMinWidth: resolve([
+      view.useDefaultMinWidth,
+      props.instanceCommon.useDefaultMinWidth,
+    ]),
+    useDefaultWidth: resolve([
+      view.useDefaultWidth,
+      props.instanceCommon.useDefaultWidth,
+    ]),
+  }
+}
+
 
 // Default configuration in component props. Added here just as a useful reference.
 // export const DEFAULT_MESSAGE_CONFIG: PointData[] = [{ id: "0", x: 1, y: 2 }];
@@ -59,7 +139,7 @@ const POINT_DELETED_EVENT = "onPointDeleted";
  */
 const onPointsChange = (
   props: ComponentProps<MessengerProps>,
-  newPoints: PointData[]
+  newPoints: PointData[],
 ) => {
   const defaultColorProp = "";
   props.store.props.write(
@@ -69,13 +149,13 @@ const onPointsChange = (
         item.color = defaultColorProp;
       }
       return item;
-    })
+    }),
   );
 };
 
 const setSelectedPoint = (
   props: ComponentProps<MessengerProps>,
-  point: PointData
+  point: PointData,
 ) => {
   props.store.props.write("selected-point", point);
 };
@@ -84,6 +164,7 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
   const height = props.emit({ classes: ["messenger-component"] })["style"][
     "height"
   ];
+  console.log(props.store.parent)
   return (
     <div
       id="plane-container"
@@ -131,6 +212,20 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         }}
         createPoint={props.props.createPoint}
       />
+      {props.props.instances.map((_, index) => {
+        const view = resolveViewProps(props.props, index)
+        const mountPath = getChildMountPath(props.store, view.key)
+        const key = PageStore.instanceKeyFor(view.viewPath, mountPath)
+
+        return (
+          <DelegateEmbeddedView
+            key={key}
+            mountPath={mountPath}
+            view={view}
+            store={props.store}
+          />
+        )
+      })}
     </div>
   );
 };
@@ -186,6 +281,8 @@ export class MessengerComponentMeta implements ComponentMeta {
       zooming: tree.read("zooming", false),
       selectedPoint: tree.read("selected-point", {}),
       createPoint: tree.read("createPoint", true),
+      instances: tree.read("instances", []),
+      instanceCommon: tree.read("instanceCommon", {}),
     };
   }
 }
