@@ -9,17 +9,29 @@
         "createPoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click"
+            "description": "Whether to enable point creation on click",
+            "visibleWhen": {
+                "property": "Buttons",
+                "equals": true
+            }
         },
         "editPoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click"
+            "description": "Whether to enable point creation on click",
+            "visibleWhen": {
+                "property": "Buttons",
+                "equals": true
+            }
         },
         "deletePoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click"
+            "description": "Whether to enable point creation on click",
+            "visibleWhen": {
+                "property": "Buttons",
+                "equals": true
+            }
         },
         "panning": {
             "type": "boolean",

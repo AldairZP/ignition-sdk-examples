@@ -102,7 +102,9 @@ export function Plane({
   const handlePointDeleted = (id: string, x: number, y: number) => {
     const deletedPoint: PointData = { id, x, y };
     const updatedPoints = currentPoints.filter((pt) => pt.id != id);
+    setSelectedPoint(deletedPoint)
     onPointDeleted(deletedPoint, updatedPoints);
+    if (!isDeletePoint) return;
     deletePoint(id);
   };
 
