@@ -31,6 +31,9 @@ export interface PlaneProps {
   zooming?: boolean;
   height?: number;
   createPoint?: boolean;
+  editPoint?: boolean;
+  deletePoint?: boolean;
+  selectedPoint?: PointData;
   onPointCreated: (point: PointData, points: PointData[]) => void;
   onPointReleased: (point: PointData, points: PointData[]) => void;
   onPointDeleted: (point: PointData, points: PointData[]) => void;
@@ -55,11 +58,14 @@ export function Plane({
   panning,
   zooming,
   height,
+  createPoint = false,
+  editPoint = false,
+  deletePoint: isDeletePoint = false,
   onPointCreated,
   onPointReleased,
   onPointDeleted,
   setSelectedPoint,
-  createPoint = false,
+  selectedPoint,
 }: PlaneProps) {
   const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
@@ -88,7 +94,7 @@ export function Plane({
   const handlePointReleased = (id: string, x: number, y: number) => {
     const releasedPoint: PointData = { id, x, y };
     const updatedPoints = currentPoints.map((pt) =>
-      pt.id === id ? releasedPoint : pt
+      pt.id === id ? releasedPoint : pt,
     );
     onPointReleased(releasedPoint, updatedPoints);
   };
@@ -115,8 +121,8 @@ export function Plane({
                 ? newContainerHeight && newContainerHeight - 49
                 : newContainerHeight && newContainerHeight - 4
               : buttons
-              ? height && height - 45
-              : height,
+                ? height && height - 45
+                : height,
 
           width: "100%",
           padding: 0,
@@ -132,8 +138,8 @@ export function Plane({
                 ? newContainerHeight && newContainerHeight - 49
                 : newContainerHeight && newContainerHeight - 4
               : buttons
-              ? height && height - 45
-              : height
+                ? height && height - 45
+                : height
           }
           width={"auto"}
           viewBox={{ x: [-zoomValue, zoomValue], y: [-zoomValue, zoomValue] }}
@@ -159,9 +165,11 @@ export function Plane({
                   color={colorEditPoints}
                   key={p.id}
                   point={p}
+                  editPoint={editPoint}
                   onMove={movePoint}
                   onRelease={handlePointReleased}
-                  selectedPoint={setSelectedPoint}
+                  setSelectedPoint={setSelectedPoint}
+                  selectedPoint={selectedPoint}
                 />
               );
             }

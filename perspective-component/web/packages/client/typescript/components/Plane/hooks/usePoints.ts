@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import type { PointData } from "../types";
 
 export interface UsePointsOptions {
@@ -19,22 +19,33 @@ export function usePoints(options: UsePointsOptions = {}) {
 
   const [internalPoints, setInternalPoints] =
     useState<PointData[]>(initialPoints);
+  const controlledPointsRef = useRef<PointData[] | undefined>(controlledPoints);
+  const onPointsChangeRef = useRef(onPointsChange);
+
+  useEffect(() => {
+    controlledPointsRef.current = controlledPoints;
+  }, [controlledPoints]);
+
+  useEffect(() => {
+    onPointsChangeRef.current = onPointsChange;
+  }, [onPointsChange]);
 
   // Usar puntos controlados si se proporcionan, sino usar estado interno
   const isControlled = controlledPoints !== undefined;
-  const points = isControlled ? controlledPoints : internalPoints;
+  const points = isControlled ? controlledPoints ?? [] : internalPoints;
 
   const setPoints = useCallback(
     (updater: PointData[] | ((prev: PointData[]) => PointData[])) => {
       if (isControlled) {
+        const basePoints = controlledPointsRef.current ?? [];
         const newPoints =
-          typeof updater === "function" ? updater(controlledPoints) : updater;
-        onPointsChange?.(newPoints);
-      } else {
-        setInternalPoints(updater);
+          typeof updater === "function" ? updater(basePoints) : updater;
+        onPointsChangeRef.current?.(newPoints);
+        return;
       }
+      setInternalPoints(updater);
     },
-    [isControlled, controlledPoints, onPointsChange]
+    [isControlled]
   );
 
   const createPoint = useCallback(

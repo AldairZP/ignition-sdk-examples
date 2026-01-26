@@ -11,6 +11,16 @@
             "default": true,
             "description": "Whether to enable point creation on click"
         },
+        "editPoint": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to enable point creation on click"
+        },
+        "deletePoint": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to enable point creation on click"
+        },
         "panning": {
             "type": "boolean",
             "default": true,

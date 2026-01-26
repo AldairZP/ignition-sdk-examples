@@ -46,6 +46,8 @@ interface MessengerProps {
   zooming: boolean;
   selectedPoint: PointData;
   createPoint: boolean;
+  editPoint: boolean;
+  deletePoint: boolean;
 }
 
 // Default configuration in component props. Added here just as a useful reference.
@@ -108,6 +110,9 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
         panning={props.props.panning}
         zooming={props.props.zooming}
         height={height}
+        createPoint={props.props.createPoint}
+        editPoint={props.props.editPoint}
+        deletePoint={props.props.deletePoint}
         onPointCreated={(point, nextPoints) =>
           props.componentEvents.fireComponentEvent(POINT_CREATED_EVENT, {
             point,
@@ -126,10 +131,10 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
             points: nextPoints,
           })
         }
+        selectedPoint={props.props.selectedPoint}
         setSelectedPoint={(point: PointData) => {
           setSelectedPoint(props, point);
         }}
-        createPoint={props.props.createPoint}
       />
     </div>
   );
@@ -185,7 +190,9 @@ export class MessengerComponentMeta implements ComponentMeta {
       panning: tree.read("panning", false),
       zooming: tree.read("zooming", false),
       selectedPoint: tree.read("selected-point", {}),
-      createPoint: tree.read("createPoint", true),
+      createPoint: tree.read("createPoint", false),
+      editPoint: tree.read("editPoint", false),
+      deletePoint: tree.read("deletePoint", false),
     };
   }
 }
