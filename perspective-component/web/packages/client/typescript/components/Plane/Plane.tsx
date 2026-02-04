@@ -1,8 +1,7 @@
-import { useState } from "react";
 // import { useEffect } from "react";
 import { Mafs, Coordinates, Point } from "mafs";
 
-import { MODES, type Mode, type PointData } from "./types";
+import { MODES, type state, type PointData } from "./types";
 import { EditablePoint } from "./EditablePoint";
 import { DeletablePoint } from "./DeletablePoint";
 import { ModeSelector } from "./ModeSelector";
@@ -16,6 +15,7 @@ export interface PlaneProps {
   points?: PointData[];
   /** Callback cuando los puntos cambian (para modo controlado) */
   onPointsChange?: (points: PointData[]) => void;
+  state?: state;
   urlImage?: string;
   widthImage?: number;
   heightImage?: number;
@@ -34,6 +34,7 @@ export interface PlaneProps {
   editPoint?: boolean;
   deletePoint?: boolean;
   selectedPoint?: PointData;
+  setState: (state: state) => void;
   onPointCreated: (point: PointData, points: PointData[]) => void;
   onPointReleased: (point: PointData, points: PointData[]) => void;
   onPointDeleted: (point: PointData, points: PointData[]) => void;
@@ -41,6 +42,8 @@ export interface PlaneProps {
 }
 
 export function Plane({
+  setState,
+  state,
   initialPoints,
   points,
   onPointsChange,
@@ -67,7 +70,7 @@ export function Plane({
   setSelectedPoint,
   selectedPoint,
 }: PlaneProps) {
-  const [mode, setMode] = useState<Mode>(MODES.VIEW);
+  // const [mode, setMode] = useState<Mode>(MODES.VIEW);
   const {
     points: currentPoints,
     createPoint: createPointInternal,
@@ -76,7 +79,7 @@ export function Plane({
   } = usePoints({ initialPoints, points, onPointsChange });
 
   function handleMafsClick(point: [number, number]) {
-    if (mode !== MODES.CREATE) return;
+    if (state !== MODES.CREATE) return;
     const [x, y] = point;
 
     if (!createPoint) {
@@ -91,28 +94,33 @@ export function Plane({
     onPointCreated(createdPoint, updatedPoints);
   }
 
-  const handlePointReleased = (id: string, x: number, y: number) => {
-    const releasedPoint: PointData = { id, x, y };
+  const handlePointReleased = (point: PointData) => {
     const updatedPoints = currentPoints.map((pt) =>
-      pt.id === id ? releasedPoint : pt,
+      pt.id === point.id ? point : pt,
     );
-    onPointReleased(releasedPoint, updatedPoints);
+    onPointReleased(point, updatedPoints);
   };
 
-  const handlePointDeleted = (id: string, x: number, y: number) => {
-    const deletedPoint: PointData = { id, x, y };
-    const updatedPoints = currentPoints.filter((pt) => pt.id != id);
-    setSelectedPoint(deletedPoint)
-    onPointDeleted(deletedPoint, updatedPoints);
+  const handlePointDeleted = (point: PointData) => {
+    const updatedPoints = currentPoints.filter((pt) => pt.id != point.id);
+    setSelectedPoint(point);
+    onPointDeleted(point, updatedPoints);
     if (!isDeletePoint) return;
-    deletePoint(id);
+    deletePoint(point.id);
   };
 
   const el = document.getElementById("container-mafs");
   const newContainerHeight = el?.getBoundingClientRect().height;
   return (
     <div className="container" id="container-mafs">
-      {buttons && <ModeSelector currentMode={mode} onModeChange={setMode} />}
+      {buttons && (
+        <ModeSelector
+          currentMode={state ? state : "view"}
+          onModeChange={(state: state) => {
+            setState(state);
+          }}
+        />
+      )}
 
       <div
         style={{
@@ -129,6 +137,7 @@ export function Plane({
           width: "100%",
           padding: 0,
           margin: 0,
+          cursor: state == "create" ? "crosshair" : "default",
         }}
       >
         <Mafs
@@ -152,16 +161,18 @@ export function Plane({
             xAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
             yAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
           />
-          <Image
-            href={urlImage}
-            width={widthImage}
-            height={heightImage}
-            anchor="cc"
-            x={0}
-            y={0}
-          />
+          {urlImage && (
+            <Image
+              href={urlImage}
+              width={widthImage}
+              height={heightImage}
+              anchor="cc"
+              x={0}
+              y={0}
+            />
+          )}
           {currentPoints.map((p) => {
-            if (mode === MODES.EDIT) {
+            if (state === MODES.EDIT) {
               return (
                 <EditablePoint
                   color={colorEditPoints}
@@ -176,7 +187,7 @@ export function Plane({
               );
             }
 
-            if (mode === MODES.DELETE) {
+            if (state === MODES.DELETE) {
               return (
                 <DeletablePoint
                   color={colorDeletePoints}

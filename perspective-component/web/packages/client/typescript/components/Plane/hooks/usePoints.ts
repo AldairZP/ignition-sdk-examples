@@ -2,11 +2,8 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import type { PointData } from "../types";
 
 export interface UsePointsOptions {
-  /** Puntos iniciales (solo se usa si no hay puntos controlados) */
   initialPoints?: PointData[];
-  /** Puntos controlados externamente */
   points?: PointData[];
-  /** Callback cuando los puntos cambian (para modo controlado) */
   onPointsChange?: (points: PointData[]) => void;
 }
 

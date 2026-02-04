@@ -50,7 +50,7 @@ ignitionModule {
             "org.fakester.designer.RadDesignerHook" to "D"
         )
     )
-    skipModlSigning.set(true)
+    skipModlSigning.set(false)
 }
 
 

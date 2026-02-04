@@ -8,7 +8,7 @@ interface EditablePointProps {
   editPoint?: boolean;
   selectedPoint?: PointData;
   onMove: (id: string, x: number, y: number) => void;
-  onRelease?: (id: string, x: number, y: number) => void;
+  onRelease?: (point: PointData) => void;
   setSelectedPoint?: (point: PointData) => void;
 }
 
@@ -31,7 +31,7 @@ export function EditablePoint({
 
     if (mx !== point.x || my !== point.y) {
       if (selectedPoint?.id == point.id) {
-        setSelectedPoint({ id: point.id, x: mx, y: my });
+        setSelectedPoint({ ...point, x: mx, y: my });
       }
       if (editPoint) {
         onMove(point.id, mx, my);
@@ -47,16 +47,16 @@ export function EditablePoint({
     if (!setSelectedPoint) {
       return;
     }
-    setSelectedPoint({ id: point.id, x: currentCoords.x, y: currentCoords.y });
+    setSelectedPoint({ ...point, x: mx, y: my });
   };
 
   const handlePointerUp = () => {
     if (setSelectedPoint) {
       if (selectedPoint?.id == point.id) {
-        setSelectedPoint({ id: point.id, x: mx, y: my });
+        setSelectedPoint({ ...point, x: mx, y: my });
       }
     }
-    onRelease?.(point.id, latestCoordsRef.current.x, latestCoordsRef.current.y);
+    onRelease?.({ ...point, x: mx, y: my });
   };
 
   return (

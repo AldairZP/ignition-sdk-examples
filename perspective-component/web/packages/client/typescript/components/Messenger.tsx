@@ -15,7 +15,7 @@ import {
   SizeObject,
 } from "@inductiveautomation/perspective-client";
 import { Plane } from "./Plane";
-import { type PointData } from "./Plane/types";
+import { state, type PointData } from "./Plane/types";
 
 // The 'key' or 'id' for this component type. Component must be registered with this EXACT key in the Java side as well
 // as on the client side.
@@ -26,10 +26,8 @@ export const COMPONENT_TYPE = "rad.display.messenger";
  */
 export const MESSAGE_CONFIG_PROP = "messageConfig";
 
-// interface MessengerPropsString {
-//   points: string;
-// }
 interface MessengerProps {
+  state: state;
   points: PointData[];
   urlImage: string;
   widthImage: number;
@@ -61,7 +59,7 @@ const POINT_DELETED_EVENT = "onPointDeleted";
  */
 const onPointsChange = (
   props: ComponentProps<MessengerProps>,
-  newPoints: PointData[]
+  newPoints: PointData[],
 ) => {
   const defaultColorProp = "";
   props.store.props.write(
@@ -71,15 +69,19 @@ const onPointsChange = (
         item.color = defaultColorProp;
       }
       return item;
-    })
+    }),
   );
 };
 
 const setSelectedPoint = (
   props: ComponentProps<MessengerProps>,
-  point: PointData
+  point: PointData,
 ) => {
   props.store.props.write("selected-point", point);
+};
+
+const setState = (props: ComponentProps<MessengerProps>, state: state) => {
+  props.store.props.write("state", state);
 };
 
 export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
@@ -92,6 +94,10 @@ export const MessengerComponent = (props: ComponentProps<MessengerProps>) => {
       {...props.emit({ classes: ["messenger-component"] })}
     >
       <Plane
+        state={props.props.state}
+        setState={(state: state) => {
+          setState(props, state);
+        }}
         points={Array.isArray(props.props.points) ? props.props.points : []}
         onPointsChange={(newPoints) => {
           onPointsChange(props, newPoints);
@@ -175,6 +181,7 @@ export class MessengerComponentMeta implements ComponentMeta {
     } = tree.read("colors", colors);
 
     return {
+      state: tree.read("state", "view"),
       points: tree.read("points", DEFAULT_MESSAGE_CONFIG),
       urlImage: tree.read("urlImage", undefined),
       widthImage: tree.read("widthImage", 0),

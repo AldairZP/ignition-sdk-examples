@@ -1,56 +1,67 @@
 {
     "type": "object",
     "properties": {
+        "state": {
+            "type": "string",
+            "description": "Current interaction mode for the plane.",
+            "default": "view",
+            "suggestions": {
+                "view": "view",
+                "create": "create",
+                "edit": "edit",
+                "delete": "delete"
+            }
+        },
         "buttons": {
             "type": "boolean",
             "default": true,
-            "description": "Set true to show the hidden 'conditional' property."
+            "description": "Show the point action toggles (create/edit/delete) as configurable properties."
         },
         "createPoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click",
+            "description": "Allow creating new points via click interaction.",
             "visibleWhen": {
-                "property": "Buttons",
+                "property": "buttons",
                 "equals": true
             }
         },
         "editPoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click",
+            "description": "Allow selecting and editing existing points.",
             "visibleWhen": {
-                "property": "Buttons",
+                "property": "buttons",
                 "equals": true
             }
         },
         "deletePoint": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable point creation on click",
+            "description": "Allow deleting existing points.",
             "visibleWhen": {
-                "property": "Buttons",
+                "property": "buttons",
                 "equals": true
             }
         },
         "panning": {
             "type": "boolean",
             "default": true,
-            "description": "Whether to enable panning with the mouse and keyboard"
+            "description": "Enable panning (drag / keyboard) to move around the plane."
         },
         "zooming": {
             "type": "boolean",
-            "description": "zooming",
+            "description": "Enable zoom interactions (e.g., mouse wheel / gestures).",
             "default": true
         },
         "zoom": {
             "type": "integer",
-            "description": "zoom",
+            "description": "Initial zoom level.",
             "default": 3
         },
         "subdivisions": {
             "type": "integer",
-            "description": "number of subdivisions",
+            "description": "Number of grid subdivisions to display.",
             "default": 1,
             "suggestions": {
                 "0": 0,
@@ -62,22 +73,22 @@
         },
         "urlImage": {
             "type": "string",
-            "description": "url of image to display on component.",
+            "description": "URL of the image to display in the component.",
             "default": ""
         },
         "widthImage": {
             "type": "integer",
-            "description": "width of image",
+            "description": "Image width.",
             "default": 10
         },
         "heightImage": {
             "type": "integer",
-            "description": "height of image",
+            "description": "Image height.",
             "default": 10
         },
         "selected-point": {
             "type": "object",
-            "description": "selected Point",
+            "description": "Currently selected point (if any).",
             "properties": {
                 "id": {
                     "type": "string",
@@ -93,7 +104,7 @@
                 },
                 "color": {
                     "type": "string",
-                    "description": "color of point",
+                    "description": "Point color.",
                     "format": "color"
                 }
             },
@@ -101,36 +112,36 @@
         },
         "colors": {
             "type": "object",
-            "description": "All about colors",
+            "description": "Color configuration for the plane.",
             "minimize": true,
             "properties": {
                 "background": {
                     "type": "string",
-                    "description": "color of background",
+                    "description": "Background color.",
                     "format": "color",
                     "default": "#000"
                 },
                 "colorPoints": {
                     "type": "string",
-                    "description": "color of points",
+                    "description": "Default color for points.",
                     "format": "color",
                     "default": "#AAADDD"
                 },
                 "colorEditPoints": {
                     "type": "string",
-                    "description": "color of points",
+                    "description": "Color used to highlight points in edit mode.",
                     "format": "color",
                     "default": "#EE00AB"
                 },
                 "colorDeletePoints": {
                     "type": "string",
-                    "description": "color of points",
+                    "description": "Color used to highlight points in delete mode.",
                     "format": "color",
                     "default": "#FF0000"
                 },
                 "colorLine": {
                     "type": "string",
-                    "description": "color of lines",
+                    "description": "Grid/line color.",
                     "format": "color",
                     "default": "#333"
                 }
@@ -138,10 +149,10 @@
         },
         "points": {
             "type": "array",
-            "description": "Dynamic array of suggestions to use for another property.",
+            "description": "List of points displayed on the plane.",
             "items": {
                 "type": "object",
-                "description": "point of plane",
+                "description": "A point on the plane.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -157,7 +168,7 @@
                     },
                     "color": {
                         "type": "string",
-                        "description": "color of point",
+                        "description": "Point color.",
                         "format": "color"
                     }
                 }

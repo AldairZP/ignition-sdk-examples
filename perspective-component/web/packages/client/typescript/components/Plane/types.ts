@@ -6,6 +6,8 @@ export interface PointData {
   [key: string]: any;
 }
 
+export type state = "view" | "create" | "edit" | "delete";
+
 export const MODES = {
   VIEW: "view",
   CREATE: "create",
