@@ -10,6 +10,7 @@
 import {
   ComponentMeta,
   ComponentProps,
+  PComponent,
   // PComponent,
   PropertyTree,
   SizeObject,
@@ -159,9 +160,8 @@ export class MessengerComponentMeta implements ComponentMeta {
     };
   }
 
-  // todo type of getViewComponent  PComponent
-  getViewComponent(): any {
-    return MessengerComponent;
+  getViewComponent(): PComponent {
+    return MessengerComponent as PComponent;
   }
 
   getPropsReducer(tree: PropertyTree): MessengerProps {

@@ -23,12 +23,13 @@
         "lib": ["es6", "dom", "es7", "es2017"],
         "strict": true,
         "skipLibCheck": true,
-        "types": ["react", "react-dom"],
+        // "types": ["react", "react-dom"],
         "forceConsistentCasingInFileNames": true
     },
     "include": [
+        "./types",
         "./typescript/**/*.ts",
-        "./typescript/**/*.tsx"
+        "./typescript/**/*.tsx",
     ],
     "exclude": [
         "node_modules",

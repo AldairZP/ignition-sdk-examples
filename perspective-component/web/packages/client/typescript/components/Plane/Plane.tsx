@@ -1,4 +1,3 @@
-// import { useEffect } from "react";
 import { Mafs, Coordinates, Point } from "mafs";
 
 import { MODES, type state, type PointData } from "./types";
