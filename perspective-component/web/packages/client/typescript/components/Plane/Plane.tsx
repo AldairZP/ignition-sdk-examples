@@ -7,6 +7,7 @@ import { DeletablePoint } from "./DeletablePoint";
 import { ModeSelector } from "./ModeSelector";
 import { usePoints } from "./hooks/usePoints";
 import { Image } from "mafs";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 export interface PlaneProps {
   /** Puntos iniciales (solo se usa en modo no controlado) */
@@ -77,6 +78,8 @@ export function Plane({
     movePoint,
     deletePoint,
   } = usePoints({ initialPoints, points, onPointsChange });
+  // rerender when resize the window
+  useWindowSize();
 
   function handleMafsClick(point: [number, number]) {
     if (state !== MODES.CREATE) return;
@@ -156,11 +159,6 @@ export function Plane({
           viewBox={{ x: [-zoomValue, zoomValue], y: [-zoomValue, zoomValue] }}
           onClick={(point: [number, number]) => handleMafsClick(point)}
         >
-          <Coordinates.Cartesian
-            subdivisions={subdivisions}
-            xAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
-            yAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
-          />
           {urlImage && (
             <Image
               href={urlImage}
@@ -171,6 +169,11 @@ export function Plane({
               y={0}
             />
           )}
+          <Coordinates.Cartesian
+            subdivisions={subdivisions}
+            xAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
+            yAxis={subdivisions > 0 ? { axis: false, labels: false } : false}
+          />
           {currentPoints.map((p) => {
             if (state === MODES.EDIT) {
               return (
