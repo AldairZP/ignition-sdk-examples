@@ -7,6 +7,7 @@ import { ModeSelector } from "./ModeSelector";
 import { usePoints } from "./hooks/usePoints";
 import { Image } from "mafs";
 import { useWindowSize } from "../../hooks/useWindowSize";
+import { uuid } from "../../shared";
 
 export interface PlaneProps {
   /** Puntos iniciales (solo se usa en modo no controlado) */
@@ -85,7 +86,7 @@ export function Plane({
     const [x, y] = point;
 
     if (!createPoint) {
-      const newPoint: PointData = { id: crypto.randomUUID(), x, y };
+      const newPoint: PointData = { id: uuid(), x, y };
       setSelectedPoint(newPoint);
       onPointCreated(newPoint, currentPoints);
       return;
