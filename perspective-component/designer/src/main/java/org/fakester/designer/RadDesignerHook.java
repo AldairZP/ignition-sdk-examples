@@ -1,6 +1,7 @@
 package org.fakester.designer;
 
 import org.fakester.common.component.display.Messenger;
+import org.fakester.common.component.display.Toastify;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -46,6 +47,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
 
         // register components to get them on the palette
         registry.registerComponent(Messenger.DESCRIPTOR);
+        registry.registerComponent(Toastify.DESCRIPTOR);
     }
 
 
@@ -56,5 +58,6 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
 
     private void removeComponents() {
         registry.removeComponent(Messenger.COMPONENT_ID);
+        registry.removeComponent(Toastify.COMPONENT_ID);
     }
 }

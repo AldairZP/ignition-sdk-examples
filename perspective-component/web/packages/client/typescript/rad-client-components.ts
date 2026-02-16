@@ -5,12 +5,10 @@ import {
 
 import "./css/main.css";
 
-// Re-export all view components + metas so other TS/TSX files can do:
-//   import { MessengerComponent } from "./components";
 export * from "./components";
 
-import { MessengerComponentMeta } from "./components";
+import { MessengerComponentMeta, ToastifyComponentMeta } from "./components";
 
-const components: Array<ComponentMeta> = [new MessengerComponentMeta()];
+const components: Array<ComponentMeta> = [new MessengerComponentMeta(), new ToastifyComponentMeta];
 
 components.forEach((component: ComponentMeta) => ComponentRegistry.register(component));

@@ -1,2 +1,3 @@
-export * from "./Messenger";
-export * from "./Plane"
+export { MessengerComponentMeta } from "./Messenger";
+export { ToastifyComponentMeta } from "./Toastify";
+export * from "./Plane";
