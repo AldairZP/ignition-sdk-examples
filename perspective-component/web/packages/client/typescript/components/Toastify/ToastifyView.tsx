@@ -31,7 +31,6 @@ export const ToastifyView = ({
     delete customStyle["top"]
     delete customStyle["left"]
   }
-  console.log(customStyle)
   const toastOptions = {
     position,
     theme,

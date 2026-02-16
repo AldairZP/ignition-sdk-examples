@@ -7,6 +7,8 @@ plugins {
 }
 // define a variable that describes the path to the mounted gateway folder, where we want to put things eventually
 val projectOutput: String by extra("$buildDir/generated-resources/")
+val mountedOutputDir = "$projectOutput/mounted"
+val preBuildDir = "pre-build"
 
 // configurations on which versions of Node, Npm, and Yarn the gradle build should use.  Configuration provided by/to
 // the gradle node plugin that"s applied above (com.moowork.node)
@@ -70,6 +72,20 @@ val webpack by tasks.registering(NpmTask::class) {
     outputs.files(fileTree(projectOutput))
 }
 
+val copyPreBuildToMounted by tasks.registering(Copy::class) {
+    group = "Ignition Module"
+    description = "Copies pre-compiled web assets from pre-build/ into generated mounted resources."
+
+    from(preBuildDir)
+    into(mountedOutputDir)
+    duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.EXCLUDE
+
+    inputs.files(fileTree(preBuildDir))
+    outputs.dir(file(mountedOutputDir))
+
+    dependsOn(webpack)
+}
+
 // task to delete the dist folders
 val deleteDistFolders by tasks.registering(Delete::class) {
     delete(file("packages/designer/dist/"))
@@ -78,7 +94,7 @@ val deleteDistFolders by tasks.registering(Delete::class) {
 
 tasks {
     processResources {
-        dependsOn(webpack, yarnPackages)
+        dependsOn(webpack, yarnPackages, copyPreBuildToMounted)
     }
 
     clean {
@@ -103,12 +119,12 @@ val deepClean by tasks.registering {
 
 // make sure the gateway project doesn't process resources until the webpack task is done.
 project(":gateway")?.tasks?.named("processResources")?.configure {
-    dependsOn(webpack)
+    dependsOn(webpack, copyPreBuildToMounted)
 }
 
 
 sourceSets {
     main {
-        output.dir(projectOutput, "builtBy" to listOf(webpack))
+        output.dir(projectOutput, "builtBy" to listOf(webpack, copyPreBuildToMounted))
     }
 }

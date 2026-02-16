@@ -21,7 +21,7 @@ public class Toastify {
         .setId(COMPONENT_ID)
         .setModuleId(RadComponents.MODULE_ID)
         .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .setName("Toastify")
+        .setName("04 Toastify")
         .setDefaultMetaName("toastify")
         .addPaletteEntry("", "Toastify", "A component that uses component messaging and data fetching delegates.", null, null)
         .setResources(RadComponents.BROWSER_RESOURCES)

@@ -27,7 +27,7 @@ public class Messenger {
         .setId(COMPONENT_ID)
         .setModuleId(RadComponents.MODULE_ID)
         .setSchema(SCHEMA) //  this could alternatively be created purely in Java if desired
-        .setName("Gateway Messenger")
+        .setName("03 Gateway Messenger")
         .setDefaultMetaName("messenger")
         .addPaletteEntry("", "Gateway Messenger", "A component that uses component messaging and data fetching delegates.", null, null)
         .setEvents(List.of(

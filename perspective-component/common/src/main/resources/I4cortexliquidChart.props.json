@@ -1,0 +1,259 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+
+
+        "value": {
+            "type": "number",
+            "description": "Value of your liquid.",
+            "default": 0
+        },
+        "max": {
+            "type": "number",
+            "description": "Max Value of your liquid.",
+            "default": 100
+        },
+        "isPercentage": {
+            "type": "boolean",
+            "description": "isPercentage?",
+            "enum": [
+                true,
+                false],
+            "default": true
+        },
+        "unit": {
+            "type": "string",
+            "description": "unit of your Value.",
+            "default": "liter",
+            "visibleWhen": {
+            "property": "isPercentage",
+            "equals": false
+        }
+        },
+        "formatt": {
+            "type": "string",
+            "enum": [
+                "##",
+                "##.#",
+                "##.##",
+                "##.###",
+                "##.####",
+                "##.#####",
+                "##.######"
+            ],
+            "description": "formatt of your Value like ##:##.",
+            "default": "##"
+        },
+        "shape": {
+            "type": "string",
+            "enum": [
+                "rect",
+                "circle",
+                "triangle",
+                "diamond",
+                "pin"
+            ],
+            "description": "Shape of your Chart.",
+            "default": "circle"
+        },
+        "outline": {
+            "type": "object",
+            "description": "Adjust properties of Chart",
+            "properties": {
+                "border": {
+                    "type": "number",
+                    "description": "Adjust border thickness",
+                    "default": 1
+                },
+                "distance": {
+                    "type": "number",
+                    "description": "Adjust border distance between border and liquid",
+                    "default": 1
+                },
+                "color": {
+                    "type": "string",
+                    "format": "color",
+                    "default": "#000",
+                    "description": "Adjust border color"
+                }
+            },
+            "default": {}
+        },
+        "liquid-style": {
+            "type": "object",
+            "description": "Adjust properties of liquid-style",
+            "properties": {
+                "fill": {
+                    "type": "string",
+                    "description": "Fill color of the shape",
+                    "format": "color",
+                    "default": "#0000FF"
+                },
+                "stroke": {
+                    "type": "string",
+                    "description": "Stroke color of the shape",
+                    "format": "color",
+                    "default": "#000"
+                },
+                "lineWidth": {
+                    "type": "number",
+                    "description": "The width of the stroke of the shape",
+                    "default": 1
+                },
+                "lineDash": {
+                    "type": "array",
+                    "description": "Configure dashed line stroke. The first parameter is the length of each segment, and the second parameter is the gap between segment. When lineDash is set to [0,0], there is no effect.",
+                    "default": [4, 5]
+                },
+                "strokeOpacity": {
+                    "type": "number",
+                    "description": "Stroke opacity of the shape",
+                    "default": 0.7
+                },
+                "shadowColor": {
+                    "type": "string",
+                    "description": "Shadow color of the shape",
+                    "format": "color",
+                    "default": "#000"
+                },
+                "shadowBlur": {
+                    "type": "number",
+                    "description": "Gaussian blur coefficient of the shadow",
+                    "default":10
+                },
+                "shadowOffsetY": {
+                    "type": "number",
+                    "description": "Configure vertical distance between shadow and shape",
+                    "default":5
+                },
+                "shadowOffsetX": {
+                    "type": "number",
+                    "description": "Configure horizontal distance between shadow and shape",
+                    "default":5
+                }
+            },
+            "default": {}
+
+        },
+        "wave": {
+            "type": "object",
+            "description": "Adjust properties of wave-style",
+            "properties": {
+                "length": {
+                    "type": "number",
+                    "description": "Adjust wave length",
+                    "default": 122
+                },
+                "count": {
+                    "type": "number",
+                    "description": "wave count, default 3",
+                    "default": 3
+                }
+            },
+            "default": {}
+        },
+        "statistic": {
+            "type": "object",
+            "description": "Statistic properties",
+            "properties": {
+                "content": {
+                    "type": "object",
+                    "properties": {
+                        "style": {
+                            "type": "object",
+                            "properties": {
+                                "fontSize": {
+                                    "type": "number",
+                                    "default": 22
+                                },
+                                "fill": {
+                                    "type": "string",
+                                    "format": "color",
+                                    "default": "#000"
+                                },
+                                "opacity": {
+                                    "type": "number",
+                                    "default": 1
+                                },
+                                "lineWidth": {
+                                    "type": "number",
+                                    "default": 2
+                                },
+                                "shadowColor": {
+                                    "type": "string",
+                                    "format": "color",
+                                    "default": "#000"
+                                },
+                                "shadowBlur": {
+                                    "type": "number",
+                                    "default": 10
+                                }
+                            },
+                            "default": {}
+                        }
+                    },
+                    "default": {}
+                }
+            },
+            "default": {}
+        },
+
+        "sizing": {
+            "type": "object",
+            "description": "Adjust Size of Chart",
+            "properties": {
+                "radius": {
+                    "type": "number",
+                    "description": "radius of your shape.",
+                    "default": 1
+                },
+                "autoFit": {
+                    "type":"boolean",
+                    "description": "Whether the chart automatically adjusts to fit the container. If it is set to true, width and height configuration would fail.",
+                    "enum": [
+                        true,
+                        false],
+                    "default": false
+                },
+                "padding": {
+                    "type": "number",
+                    "description": "Set padding value of the canvas. You can also use auto.",
+                    "default": "auto"
+                },
+                "appendPadding": {
+                    "type": "number",
+                    "description": "Extra appendPadding value.(number[] | number)",
+                    "default": 0
+                },
+                "width": {
+                    "type": "number",
+                    "description": "Set the width of the chart.",
+                    "default": 400,
+                    "visibleWhen": {
+                        "property": "autoFit",
+                        "equals": false
+                    }
+                },
+                "height": {
+                    "type": "number",
+                    "description": "Set the height of the chart.",
+                    "default": 400,
+                    "visibleWhen": {
+                        "property": "autoFit",
+                        "equals": false
+                    }
+                }
+            },
+            "default": {
+             "radius": 1
+            }
+        },
+        "style": {
+            "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+            "default": {
+                "classes": ""
+            }
+        }
+    }
+}

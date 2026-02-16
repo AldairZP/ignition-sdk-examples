@@ -2,6 +2,8 @@ package org.fakester.designer;
 
 import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
+import org.fakester.common.component.display.IconBadge;
+import org.fakester.common.component.display.LiquidChart;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -13,7 +15,8 @@ import com.inductiveautomation.perspective.designer.api.ComponentDesignDelegateR
 import com.inductiveautomation.perspective.designer.api.PerspectiveDesignerInterface;
 
 /**
- * The 'hook' class for the designer scope of the module.  Registered in the ignitionModule configuration of the
+ * The 'hook' class for the designer scope of the module. Registered in the
+ * ignitionModule configuration of the
  * root build.gradle file.
  */
 public class RadDesignerHook extends AbstractDesignerModuleHook {
@@ -48,8 +51,9 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         // register components to get them on the palette
         registry.registerComponent(Messenger.DESCRIPTOR);
         registry.registerComponent(Toastify.DESCRIPTOR);
+        registry.registerComponent(LiquidChart.DESCRIPTOR);
+        registry.registerComponent(IconBadge.DESCRIPTOR);
     }
-
 
     @Override
     public void shutdown() {
@@ -59,5 +63,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
     private void removeComponents() {
         registry.removeComponent(Messenger.COMPONENT_ID);
         registry.removeComponent(Toastify.COMPONENT_ID);
+        registry.removeComponent(LiquidChart.COMPONENT_ID);
+        registry.removeComponent(IconBadge.COMPONENT_ID);
     }
 }

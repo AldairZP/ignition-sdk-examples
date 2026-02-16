@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.fakester.common.RadComponents;
 import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
+import org.fakester.common.component.display.IconBadge;
+import org.fakester.common.component.display.LiquidChart;
 
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
@@ -38,6 +40,8 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
             log.info("Registering Rad components.");
             this.componentRegistry.registerComponent(Messenger.DESCRIPTOR);
             this.componentRegistry.registerComponent(Toastify.DESCRIPTOR);
+            this.componentRegistry.registerComponent(LiquidChart.DESCRIPTOR);
+            this.componentRegistry.registerComponent(IconBadge.DESCRIPTOR);
         } else {
             log.error("Reference to component registry not found, Rad Components will fail to function!");
         }
@@ -50,6 +54,8 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
         if (this.componentRegistry != null) {
             this.componentRegistry.removeComponent(Messenger.COMPONENT_ID);
             this.componentRegistry.removeComponent(Toastify.COMPONENT_ID);
+            this.componentRegistry.removeComponent(LiquidChart.COMPONENT_ID);
+            this.componentRegistry.removeComponent(IconBadge.COMPONENT_ID);
         } else {
             log.warn("Component registry was null, could not unregister Rad Components.");
         }
