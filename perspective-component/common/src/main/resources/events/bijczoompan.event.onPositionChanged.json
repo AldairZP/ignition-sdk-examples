@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "newX": {
+            "type": "number",
+            "description": "The new x position"
+        },
+        "newY": {
+            "type": "number",
+            "description": "The new y position"
+        }
+    }
+}

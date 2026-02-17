@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "x": {
+            "type": "number",
+            "description": "The x location of the second tap in the double tap"
+        },
+        "y": {
+            "type": "number",
+            "description": "The y location of the second tap in the double tap"
+        }
+    }
+}

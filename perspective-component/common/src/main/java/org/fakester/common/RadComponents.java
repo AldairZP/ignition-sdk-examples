@@ -29,7 +29,12 @@ public class RadComponents {
                     BrowserResource.ResourceType.JS),
             new BrowserResource("bijc-cal-components-css",
                     String.format("/res/%s/BijcCalComponents.css", URL_ALIAS),
-                    BrowserResource.ResourceType.CSS))
-
-    ;
+                    BrowserResource.ResourceType.CSS),
+            new BrowserResource("bijc-zoompan-components-js",
+                    String.format("/res/%s/BijcZoomPan.js", URL_ALIAS),
+                    BrowserResource.ResourceType.JS),
+            new BrowserResource("bijc-zoompan-components-css",
+                    String.format("/res/%s/BijcZoomPan.css", URL_ALIAS),
+                    BrowserResource.ResourceType.CSS)
+        );
 }

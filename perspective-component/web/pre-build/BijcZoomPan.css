@@ -1,0 +1,137 @@
+/*!*********************************************************************************************************************************************!*\
+  !*** css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js!./scss/main.scss ***!
+  \*********************************************************************************************************************************************/
+.bijc-zp-display-none {
+  display: none;
+}
+
+.bijc-zp-debug-border {
+  box-shadow: inset 0px 0px 0px 2px #ea2027;
+}
+
+.bijc-zp-debug-box {
+  background-color: rgba(0, 0, 0, 0.3764705882);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.bijc-zp-toolbox-button {
+  border-radius: 10px;
+}
+
+.bijc-zp-overflow-hidden {
+  overflow: hidden;
+}
+
+.bijc-zp-inner {
+  overflow: hidden;
+}
+
+.bijc-zp-outer {
+  user-select: none;
+  touch-action: none;
+  overflow: hidden !important;
+}
+
+.bijc-zp-debug-lamp {
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.bijc-zp-debug-event {
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+  border-style: dashed;
+  border-width: 1px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.bijc-zp-debug-primary {
+  color: #f5f6fa;
+  background-color: #273c75;
+  border-color: #192a56;
+}
+
+.bijc-zp-debug-secondary {
+  color: #f5f6fa;
+  background-color: #487eb0;
+  border-color: #40739e;
+}
+
+.bijc-zp-debug-warning {
+  color: #2f3640;
+  background-color: #fbc531;
+  border-color: #e1b12c;
+}
+
+.bijc-zp-debug-success {
+  color: #192a56;
+  background-color: #4cd137;
+  border-color: #44bd32;
+}
+
+.bijc-zp-debug-danger {
+  color: #fbc531;
+  background-color: #e84118;
+  border-color: #c23616;
+}
+
+.bijc-zp-debug-purple {
+  color: #2f3640;
+  background-color: #9c88ff;
+  border-color: #8c7ae6;
+}
+
+.bijc-zp-debug-grey {
+  color: #2f3640;
+  background-color: #7f8fa6;
+  border-color: #718093;
+}
+
+.bijc-zp-unlicensed-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.bijc-zp-unlicensed-label {
+  color: #7f8c8d;
+  -webkit-text-fill-color: #ecf0f1;
+  -webkit-text-stroke: 1px #7f8c8d;
+  font-size: xx-large;
+  text-transform: uppercase;
+  animation-name: zpunlicensedappear;
+  animation-duration: 5s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes bijc-zp-unlicensed-appear {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

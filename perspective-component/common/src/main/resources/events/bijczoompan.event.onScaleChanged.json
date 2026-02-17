@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "newScale": {
+            "type": "number",
+            "description": "The new scale factor"
+        }
+    }
+}

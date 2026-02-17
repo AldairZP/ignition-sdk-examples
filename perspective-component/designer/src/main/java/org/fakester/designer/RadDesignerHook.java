@@ -6,6 +6,7 @@ import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
 import org.fakester.common.component.display.BijcCalendar;
 import org.fakester.common.component.display.BijcExternalEventBox;
+import org.fakester.common.component.display.BijcZoomPan;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -48,7 +49,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         PerspectiveDesignerInterface pdi = PerspectiveDesignerInterface.get(context);
 
         registry = pdi.getDesignerComponentRegistry();
-        delegateRegistry = pdi.getComponentDesignDelegateRegistry();
+        this.delegateRegistry = pdi.getComponentDesignDelegateRegistry();
 
         // register components to get them on the palette
         registry.registerComponent(Messenger.DESCRIPTOR);
@@ -57,6 +58,9 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.registerComponent(IconBadge.DESCRIPTOR);
         registry.registerComponent(BijcCalendar.DESCRIPTOR);
         registry.registerComponent(BijcExternalEventBox.DESCRIPTOR);
+        registry.registerComponent(BijcZoomPan.DESCRIPTOR);
+
+        // this.delegateRegistry.register(BijcZoomPan.COMPONENT_ID, new BijcZoomPanDesignDelegate());
     }
 
     @Override
@@ -71,5 +75,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.removeComponent(IconBadge.COMPONENT_ID);
         registry.removeComponent(BijcCalendar.COMPONENT_ID);
         registry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
+        registry.removeComponent(BijcZoomPan.COMPONENT_ID);
+        // this.delegateRegistry.remove(BijcZoomPan.COMPONENT_ID);
     }
 }

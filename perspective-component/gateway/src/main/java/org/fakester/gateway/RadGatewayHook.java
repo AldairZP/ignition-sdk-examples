@@ -9,6 +9,7 @@ import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
 import org.fakester.common.component.display.BijcCalendar;
 import org.fakester.common.component.display.BijcExternalEventBox;
+import org.fakester.common.component.display.BijcZoomPan;
 
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
 import com.inductiveautomation.ignition.common.util.LoggerEx;
@@ -20,7 +21,8 @@ import com.inductiveautomation.ignition.common.gson.JsonObject;
 import com.inductiveautomation.ignition.gateway.dataroutes.RouteGroup;
 import com.inductiveautomation.perspective.gateway.api.ComponentModelDelegateRegistry;
 
-import org.fakester.gateway.delegate.BijcCalDelegate;;
+import org.fakester.gateway.delegate.BijcCalDelegate;
+import org.fakester.gateway.delegate.BijcZoomPanDelegate;
 
 public class RadGatewayHook extends AbstractGatewayModuleHook {
 
@@ -52,6 +54,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
             this.componentRegistry.registerComponent(IconBadge.DESCRIPTOR);
             this.componentRegistry.registerComponent(BijcCalendar.DESCRIPTOR);
             this.componentRegistry.registerComponent(BijcExternalEventBox.DESCRIPTOR);
+            this.componentRegistry.registerComponent(BijcZoomPan.DESCRIPTOR);
         } else {
             log.error("Reference to component registry not found, Rad Components will fail to function!");
         }
@@ -59,6 +62,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
         if (this.modelDelegateRegistry != null) {
             log.info("Registering model delegates.");
             this.modelDelegateRegistry.register(BijcCalendar.COMPONENT_ID, BijcCalDelegate::new);
+            this.modelDelegateRegistry.register(BijcZoomPan.COMPONENT_ID, BijcZoomPanDelegate::new);
         } else {
             log.error("ModelDelegateRegistry was not found!");
         }
@@ -75,6 +79,8 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
             this.componentRegistry.removeComponent(IconBadge.COMPONENT_ID);
             this.componentRegistry.removeComponent(BijcCalendar.COMPONENT_ID);
             this.componentRegistry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
+            this.componentRegistry.removeComponent(BijcZoomPan.COMPONENT_ID);
+            this.componentRegistry.removeComponent(BijcZoomPan.COMPONENT_ID);
         } else {
             log.warn("Component registry was null, could not unregister Rad Components.");
         }
