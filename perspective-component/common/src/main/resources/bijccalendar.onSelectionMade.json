@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "selectStart": {
+            "type": "object",
+            "descripion": "Start of Selection"
+        },
+        "selectEnd": {
+            "type": "object",
+            "descripion": "End of Selection"
+        },
+        "altKey": {
+            "type": "boolean",
+            "description": "True if the 'alt' key was held down when the event was fired."
+        },
+        "shiftKey": {
+            "type": "boolean",
+            "description": "True if the 'shift' key was held down when the event was fired."
+        }
+    }
+}

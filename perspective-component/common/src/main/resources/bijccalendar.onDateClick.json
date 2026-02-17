@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "date": {
+            "type": "object",
+            "descripion": "The date clicked"
+        },
+        "dateStr": {
+            "type": "string",
+            "descripion": "An ISO8601 string representation of the date"
+        },
+        "altKey": {
+            "type": "boolean",
+            "description": "True if the 'alt' key was held down when the event was fired."
+        },
+        "shiftKey": {
+            "type": "boolean",
+            "description": "True if the 'shift' key was held down when the event was fired."
+        }
+    }
+}

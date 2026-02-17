@@ -1,0 +1,129 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "type": "array",
+      "description": "An array of Event Objects that will be displayed on the calendar.",
+      "default": []
+    },
+    "eventColor": {
+      "type": "string",
+      "format": "color",
+      "default": "#d40000"
+    },
+    "eventTextColor": {
+      "type": "string",
+      "format": "color",
+      "default": "#fff"
+    },
+    "showCreateButton": {
+      "type": "boolean",
+      "description": "Whether to show the create event button or not",
+      "default": false
+    },
+    "canAddOwner": {
+      "type": "boolean",
+      "default": false,
+      "description": "Allows the adding of an owner to the event on the default popups"
+    },
+    "owners": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Owner"
+      },
+      "default": [],
+      "description": "The list of owners to display in the default popups"
+    },
+    "padding": {
+      "type": [
+        "number",
+        "string"
+      ],
+      "default": "0px"
+    },
+    "buttonStyle": {
+      "type": "object",
+      "properties": {
+        "buttonColor": {
+          "type": "string",
+          "format": "color",
+          "default": "#34495e"
+        },
+        "buttonTextColor": {
+          "type": "string",
+          "format": "color",
+          "default": "#fff"
+        },
+        "buttonHoverColor": {
+          "type": "string",
+          "format": "color",
+          "default": "#2c3e50"
+        },
+        "buttonHoverTextColor": {
+          "type": "string",
+          "format": "color",
+          "default": "#fff"
+        }
+      }
+    },
+    "flex": {
+      "type": "object",
+      "properties": {
+        "flexDirection": {
+          "type": "string",
+          "enum": ["row", "row-reverse", "column", "column-reverse"],
+          "default": "column"
+        },
+        "flexWrap": {
+          "type": "string",
+          "enum": ["nowrap", "wrap", "wrap-reverse"],
+          "default": "nowrap"
+        },
+        "justifyContent": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "flex-end",
+            "center",
+            "space-between",
+            "space-around",
+            "space-evenly"
+          ],
+          "default": "flex-start"
+        },
+        "alignItems": {
+          "type": "string",
+          "enum": ["flex-start", "flex-end", "center", "stretch"],
+          "default": "stretch"
+        },
+        "alignContent": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "flex-end",
+            "center",
+            "stretch",
+            "space-between",
+            "space-around"
+          ],
+          "default": "stretch"
+        },
+        "rowGap": {
+          "type": ["string", "number"],
+          "default": "0px"
+        },
+        "columnGap": {
+          "type": ["string", "number"],
+          "default": "0px"
+        }
+      }
+    },
+    "style": {
+      "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+      "default": {
+        "classes": ""
+      }
+    }
+  }
+}

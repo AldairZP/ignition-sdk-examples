@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "descripion": "The id of the event to delete"
+        }
+    }
+}

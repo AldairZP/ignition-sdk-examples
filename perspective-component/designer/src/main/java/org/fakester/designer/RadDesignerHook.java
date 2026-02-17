@@ -4,6 +4,8 @@ import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
 import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
+import org.fakester.common.component.display.BijcCalendar;
+import org.fakester.common.component.display.BijcExternalEventBox;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -53,6 +55,8 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.registerComponent(Toastify.DESCRIPTOR);
         registry.registerComponent(LiquidChart.DESCRIPTOR);
         registry.registerComponent(IconBadge.DESCRIPTOR);
+        registry.registerComponent(BijcCalendar.DESCRIPTOR);
+        registry.registerComponent(BijcExternalEventBox.DESCRIPTOR);
     }
 
     @Override
@@ -65,5 +69,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.removeComponent(Toastify.COMPONENT_ID);
         registry.removeComponent(LiquidChart.COMPONENT_ID);
         registry.removeComponent(IconBadge.COMPONENT_ID);
+        registry.removeComponent(BijcCalendar.COMPONENT_ID);
+        registry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
     }
 }

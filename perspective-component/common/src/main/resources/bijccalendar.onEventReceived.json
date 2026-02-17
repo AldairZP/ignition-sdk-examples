@@ -1,0 +1,48 @@
+{
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "The title of the event"
+        },
+        "startDate": {
+            "type": "string",
+            "descripion": "New start date in Ignition parseable format"
+        },
+        "endDate": {
+            "type": "string",
+            "descripion": "New end date in Ignition parseable format"
+        },
+        "startTime": {
+            "type": "string",
+            "descripion": "New start time in Ignition parseable format"
+        },
+        "endTime": {
+            "type": "string",
+            "descripion": "New end time in Ignition parseable format"
+        },
+        "allDay": {
+            "type": "boolean",
+            "description": "Whether the event is an All Day event"
+        },
+        "eventColor": {
+            "type": "string",
+            "format": "color",
+            "description": "The color of the event background and border"
+        },
+        "eventTextColor": {
+            "type": "string",
+            "format": "color",
+            "description": "The color of the event text"
+        },
+        "ownerId": {
+            "type": [
+                "number",
+                "string"
+            ]
+        },
+        "ownerName": {
+            "type": "string"
+        }
+    }
+}

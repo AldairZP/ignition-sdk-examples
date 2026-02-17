@@ -20,7 +20,8 @@ public class IconBadge {
 
     // .setModuleId(RadComponents.MODULE_ID)
     static {
-        DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY).setId(COMPONENT_ID)
+        DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+                .setId(COMPONENT_ID)
                 .setModuleId(RadComponents.MODULE_ID).setSchema(SCHEMA).setName("01 Icon Badge")
                 .setIcon(new ImageIcon(RadComponents.class.getResource("/i4cortex.png")))
                 .addPaletteEntry("", "Icon Badge", "Icon Badge component.", (BufferedImage) null, (JsonObject) null)

@@ -1,0 +1,32 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "descripion": "Event id"
+        },
+        "title": {
+            "type": "string",
+            "descripion": "Event title"
+        },
+        "start": {
+            "type": "string",
+            "descripion": "Event start time"
+        },
+        "end": {
+            "type": "string",
+            "descripion": "Event end time"
+        },
+        "allDay": {
+            "type": "boolean"
+        },
+        "altKey": {
+            "type": "boolean",
+            "description": "True if the 'alt' key was held down when the event was fired."
+        },
+        "shiftKey": {
+            "type": "boolean",
+            "description": "True if the 'shift' key was held down when the event was fired."
+        }
+    }
+}

@@ -20,7 +20,8 @@ public class LiquidChart {
     }
 
     static {
-        DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY).setId(COMPONENT_ID)
+        DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
+                .setId(COMPONENT_ID)
                 .setModuleId(RadComponents.MODULE_ID).setSchema(SCHEMA).setName("02 Fluid chart")
                 .setIcon(new ImageIcon(RadComponents.class.getResource("/i4cortex.png")))
                 .addPaletteEntry("", "Fluid chart", "A Fluid chart component.", (BufferedImage) null, (JsonObject) null)
