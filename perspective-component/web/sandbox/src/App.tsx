@@ -1,24 +1,9 @@
-import { useState } from "react";
-import { ToastSileoView } from "./components/ToastSileo/ToastSileoView";
+import { ToastSileoControls } from "./components/ToastSileoControls/ToastSileoControls";
 
 function App() {
-  const [trigger, setTrigger] = useState(false)
-  const handleTrigger = () => {
-    setTrigger(!trigger);
-  };
   return (
     <>
-    <button onClick={handleTrigger}></button>
-      <ToastSileoView
-        trigger={trigger}
-        type="error"
-        title="Error de carga"
-        description="No se pudo inicializar Sileo"
-        position="top-right"
-        duration={40000}
-        fill="#fff"
-        theme="dark"
-      />
+      <ToastSileoControls/>
     </>
   );
 }

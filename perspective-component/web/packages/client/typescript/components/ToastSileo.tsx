@@ -9,48 +9,37 @@ import { ToastSileoView } from "./ToastSileo/ToastSileoView";
 
 export const COMPONENT_TYPE = "rad.display.toastsileo";
 
-type ToastSileoType = "info" | "error" | "success" | "warning";
-// type ToastSileoPosition =
-//   | "bottom-center"
-//   | "bottom-left"
-//   | "bottom-right"
-//   | "top-center"
-//   | "top-left"
-//   | "top-right";
-// type ToastSileoTheme = "light" | "dark" | "colored";
+type ToastSileoType = "success" | "info" | "warning" | "error" | "show";
+type ToastSileoPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
+type ToastSileoTheme = "dark" | "light";
 
 interface ToastSileoProps {
   trigger: boolean;
   type: ToastSileoType;
-  // text: string;
-  // position: ToastSileoPosition;
-  // theme: ToastSileoTheme;
-  // closeButton: boolean;
-  // hideProgressBar: boolean;
-  // isLoading: boolean;
-  // autoClose: number;
-  // pauseOnFocusLoss: boolean;
-  // pauseOnHover: boolean;
+  title: string;
+  description: string;
+  position: ToastSileoPosition;
+  duration: number;
+  theme: ToastSileoTheme;
 }
 
 export const ToastSileoComponent = (props: ComponentProps<ToastSileoProps>) => {
   return (
-    <ToastSileoView type={props.props.type} trigger={props.props.trigger} />
-    // <ToastifyView
-    // className={{ ...props.emit({ classes: ["toastsileo-component"] }) }["className"]}
-    // style={{ ...props.emit({ classes: ["toastsileo-component"] }) }["style"]}
-    // trigger={props.props.trigger}
-    // type={props.props.type}
-    // text={props.props.text}
-    // position={props.props.position}
-    // theme={props.props.theme}
-    // closeButton={props.props.closeButton}
-    // hideProgressBar={props.props.hideProgressBar}
-    // isLoading={props.props.isLoading}
-    // autoClose={props.props.autoClose}
-    // pauseOnFocusLoss={props.props.pauseOnFocusLoss}
-    // pauseOnHover={props.props.pauseOnHover}
-    // />
+    <ToastSileoView
+      trigger={props.props.trigger}
+      type={props.props.type}
+      title={props.props.title}
+      description={props.props.description}
+      position={props.props.position}
+      duration={props.props.duration}
+      theme={props.props.theme}
+    />
   );
 };
 
@@ -73,16 +62,12 @@ export class ToastSileoComponentMeta implements ComponentMeta {
   getPropsReducer(tree: PropertyTree): ToastSileoProps {
     return {
       trigger: tree.read("trigger", false),
-      type: tree.read("type", "default"),
-      // text: tree.read("text", ""),
-      // position: tree.read("position", "bottom-right"),
-      // theme: tree.read("theme", "light"),
-      // closeButton: tree.read("closeButton", true),
-      // hideProgressBar: tree.read("hideProgressBar", false),
-      // isLoading: tree.read("isLoading", false),
-      // autoClose: tree.read("autoClose", 5000),
-      // pauseOnFocusLoss: tree.read("pauseOnFocusLoss", true),
-      // pauseOnHover: tree.read("pauseOnHover", true),
+      type: tree.read("type", "info"),
+      title: tree.read("title", "title"),
+      description: tree.read("description", "description"),
+      position: tree.read("position", "bottom-right"),
+      duration: tree.read("duration", 4000),
+      theme: tree.read("theme", "light"),
     };
   }
 }

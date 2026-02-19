@@ -1,22 +1,30 @@
+import "./ToastSileoView.module.css"
 import { useState } from "react";
-import { sileo, SileoOptions, Toaster } from "sileo";
+import { sileo, Toaster } from "sileo";
+import type { SileoOptions } from "sileo";
+import {toastSileoView_description_dark, toastSileoView_description_light} from "./ToastSileoView.module.css"
+import { HtmlText } from "./HtmlText";
 
-type typeToast = "success" | "info" | "warning" | "error";
-
-interface Props {
-  trigger: boolean;
-  type: typeToast;
-}
-
-export const ToastSileoView = ({ type, trigger }: Props) => {
+export const ToastSileoView = ({
+  type,
+  trigger,
+  title,
+  description,
+  position,
+  duration,
+  theme
+}: Props) => {
   const [prevTrigger, setPrevTrigger] = useState(trigger);
   const handleToast = () => {
     const options: SileoOptions = {
-      title: "Something went wrong",
-      description: "Please try again later.",
-      position: "top-center",
-      duration: 100000,
-      fill: "#171717",
+      title,
+      description: <HtmlText html={description}/>,
+      position,
+      duration,
+      fill: theme === "dark" ? "#171717" : "#E7E7E7",
+      styles:{
+        description: theme === "dark" ? toastSileoView_description_dark : toastSileoView_description_light
+      }
     };
 
     switch (type) {
@@ -33,6 +41,7 @@ export const ToastSileoView = ({ type, trigger }: Props) => {
         sileo.error(options);
         break;
       default:
+        sileo.show(options);
         break;
     }
   };
@@ -42,8 +51,6 @@ export const ToastSileoView = ({ type, trigger }: Props) => {
     setPrevTrigger(trigger);
   }
   return (
-    <>
       <Toaster />
-    </>
   );
 };
