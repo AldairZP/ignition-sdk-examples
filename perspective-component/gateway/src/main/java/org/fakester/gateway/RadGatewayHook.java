@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.fakester.common.RadComponents;
 import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
+import org.fakester.common.component.display.ToastSileo;
 import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
 import org.fakester.common.component.display.BijcCalendar;
@@ -50,6 +51,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
             log.info("Registering Rad components.");
             this.componentRegistry.registerComponent(Messenger.DESCRIPTOR);
             this.componentRegistry.registerComponent(Toastify.DESCRIPTOR);
+            this.componentRegistry.registerComponent(ToastSileo.DESCRIPTOR);
             this.componentRegistry.registerComponent(LiquidChart.DESCRIPTOR);
             this.componentRegistry.registerComponent(IconBadge.DESCRIPTOR);
             this.componentRegistry.registerComponent(BijcCalendar.DESCRIPTOR);
@@ -75,6 +77,7 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
         if (this.componentRegistry != null) {
             this.componentRegistry.removeComponent(Messenger.COMPONENT_ID);
             this.componentRegistry.removeComponent(Toastify.COMPONENT_ID);
+            this.componentRegistry.removeComponent(ToastSileo.COMPONENT_ID);
             this.componentRegistry.removeComponent(LiquidChart.COMPONENT_ID);
             this.componentRegistry.removeComponent(IconBadge.COMPONENT_ID);
             this.componentRegistry.removeComponent(BijcCalendar.COMPONENT_ID);

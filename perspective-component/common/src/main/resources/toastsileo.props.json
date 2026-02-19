@@ -1,0 +1,86 @@
+{
+    "type": "object",
+    "properties": {
+        "trigger": {
+            "type": "boolean",
+            "description": "Trigger used to fire a new toast when value changes.",
+            "default": false
+        },
+        "type": {
+            "type": "string",
+            "description": "Toast notification type.",
+            "default": "default",
+            "enum": [
+                "info",
+                "error",
+                "success",
+                "warning",
+                "default"
+            ]
+        },
+        "text": {
+            "type": "string",
+            "description": "Message shown in the toast.",
+            "default": ""
+        },
+        "position": {
+            "type": "string",
+            "description": "Toast container position.",
+            "default": "bottom-right",
+            "enum": [
+                "bottom-center",
+                "bottom-left",
+                "bottom-right",
+                "top-center",
+                "top-left",
+                "top-right"
+            ]
+        },
+        "theme": {
+            "type": "string",
+            "description": "Toast visual theme.",
+            "default": "light",
+            "enum": [
+                "light",
+                "dark",
+                "colored"
+            ]
+        },
+        "closeButton": {
+            "type": "boolean",
+            "description": "Show close button in toast.",
+            "default": true
+        },
+        "hideProgressBar": {
+            "type": "boolean",
+            "description": "Hide progress bar in toast.",
+            "default": false
+        },
+        "isLoading": {
+            "type": "boolean",
+            "description": "Show toast in loading state.",
+            "default": false
+        },
+        "autoClose": {
+            "type": "number",
+            "description": "Milliseconds before toast auto closes.",
+            "default": 5000
+        },
+        "pauseOnFocusLoss": {
+            "type": "boolean",
+            "description": "Pause auto close when window loses focus.",
+            "default": true
+        },
+        "pauseOnHover": {
+            "type": "boolean",
+            "description": "Pause auto close while hovering toast.",
+            "default": true
+        },
+        "style": {
+            "$ref": "urn:ignition-schema:schemas/style-properties.schema.json",
+            "default": {
+                "classes": ""
+            }
+        }
+    }
+}

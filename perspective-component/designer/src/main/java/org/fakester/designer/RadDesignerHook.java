@@ -2,6 +2,7 @@ package org.fakester.designer;
 
 import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
+import org.fakester.common.component.display.ToastSileo;
 import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
 import org.fakester.common.component.display.BijcCalendar;
@@ -54,6 +55,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         // register components to get them on the palette
         registry.registerComponent(Messenger.DESCRIPTOR);
         registry.registerComponent(Toastify.DESCRIPTOR);
+        registry.registerComponent(ToastSileo.DESCRIPTOR);
         registry.registerComponent(LiquidChart.DESCRIPTOR);
         registry.registerComponent(IconBadge.DESCRIPTOR);
         registry.registerComponent(BijcCalendar.DESCRIPTOR);
@@ -71,6 +73,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
     private void removeComponents() {
         registry.removeComponent(Messenger.COMPONENT_ID);
         registry.removeComponent(Toastify.COMPONENT_ID);
+        registry.removeComponent(ToastSileo.COMPONENT_ID);
         registry.removeComponent(LiquidChart.COMPONENT_ID);
         registry.removeComponent(IconBadge.COMPONENT_ID);
         registry.removeComponent(BijcCalendar.COMPONENT_ID);

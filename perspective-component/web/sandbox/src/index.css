@@ -1,0 +1,5 @@
+@import "./components/ToastSileo/ToastSileoView.module.css";
+
+body{
+  background-color: #cfcfcf;
+}

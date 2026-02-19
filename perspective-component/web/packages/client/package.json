@@ -18,7 +18,8 @@
         "mafs": "^0.21.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-toastify": "^11.0.5"
+        "react-toastify": "^11.0.5",
+        "sileo": "^0.1.3"
     },
     "devDependencies": {
         "@types/history": "^4.6.0",
