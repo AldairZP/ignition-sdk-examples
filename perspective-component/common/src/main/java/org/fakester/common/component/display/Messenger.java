@@ -15,12 +15,15 @@ import com.inductiveautomation.perspective.common.api.ComponentEventDescriptor;
  */
 public class Messenger {
     public static final String COMPONENT_ID = "rad.display.messenger";
+        public static final String META_NAME = "messenger";
 
-    public static final JsonSchema SCHEMA = JsonSchema
-            .parse(RadComponents.class.getResourceAsStream("/messenger.props.json"));
+        public static JsonSchema getSchema(String resourcePath) {
+                return JsonSchema.parse(RadComponents.class.getResourceAsStream("/" + META_NAME + "/" + resourcePath));
+        }
 
-    public static final JsonSchema POINT_EVENT_SCHEMA = JsonSchema
-            .parse(RadComponents.class.getResourceAsStream("/messenger.event.props.json"));
+        public static final JsonSchema SCHEMA = getSchema("messenger.props.json");
+
+        public static final JsonSchema POINT_EVENT_SCHEMA = getSchema("messenger.event.props.json");
 
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
             .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
@@ -28,7 +31,7 @@ public class Messenger {
             .setModuleId(RadComponents.MODULE_ID)
             .setSchema(SCHEMA) // this could alternatively be created purely in Java if desired
             .setName("03 Gateway Messenger")
-            .setDefaultMetaName("messenger")
+            .setDefaultMetaName(META_NAME)
             .addPaletteEntry("", "Gateway Messenger",
                     "A component that uses component messaging and data fetching delegates.", null, null)
             .setEvents(List.of(

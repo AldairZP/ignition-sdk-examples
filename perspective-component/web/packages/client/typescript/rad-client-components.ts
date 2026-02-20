@@ -14,7 +14,7 @@ import {
 } from "./components";
 
 const components: Array<ComponentMeta> = [
-    new MessengerComponentMeta(),
+    new MessengerComponentMeta,
     new ToastifyComponentMeta,
     new ToastSileoComponentMeta,
 ];

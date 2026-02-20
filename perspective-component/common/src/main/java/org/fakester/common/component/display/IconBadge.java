@@ -11,11 +11,16 @@ import org.fakester.common.RadComponents;
 
 public class IconBadge {
     public static String COMPONENT_ID = "I4cortex.IconBadge";
-    public static JsonSchema SCHEMA = JsonSchema
-            .parse(RadComponents.class.getResourceAsStream("/I4cortexIconBadge.props.json"));
+    public static final String META_NAME = "IconBadge";
+    public static JsonSchema SCHEMA = getSchema("I4cortexIconBadge.props.json");
     public static ComponentDescriptor DESCRIPTOR;
 
     public IconBadge() {
+    }
+
+    public static JsonSchema getSchema(String resourcePath) {
+        return JsonSchema.parse(
+                RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase() + "/" + resourcePath));
     }
 
     // .setModuleId(RadComponents.MODULE_ID)
@@ -25,6 +30,6 @@ public class IconBadge {
                 .setModuleId(RadComponents.MODULE_ID).setSchema(SCHEMA).setName("01 Icon Badge")
                 .setIcon(new ImageIcon(RadComponents.class.getResource("/i4cortex.png")))
                 .addPaletteEntry("", "Icon Badge", "Icon Badge component.", (BufferedImage) null, (JsonObject) null)
-                .setDefaultMetaName("IconBadge").setResources(RadComponents.BROWSER_RESOURCES).build();
+                .setDefaultMetaName(META_NAME).setResources(RadComponents.BROWSER_RESOURCES).build();
     }
 }

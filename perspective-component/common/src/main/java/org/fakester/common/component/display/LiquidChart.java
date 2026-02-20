@@ -12,12 +12,17 @@ import org.fakester.common.RadComponents;
 
 public class LiquidChart {
     public static String COMPONENT_ID = "I4cortex.FluidChart";
-    public static JsonSchema SCHEMA = JsonSchema
-            .parse(RadComponents.class.getResourceAsStream("/I4cortexliquidChart.props.json"));
+        public static final String META_NAME = "FluidChart";
+        public static JsonSchema SCHEMA = getSchema("I4cortexliquidChart.props.json");
     public static ComponentDescriptor DESCRIPTOR;
 
     public LiquidChart() {
     }
+
+        public static JsonSchema getSchema(String resourcePath) {
+                return JsonSchema.parse(
+                                RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase() + "/" + resourcePath));
+        }
 
     static {
         DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
@@ -28,30 +33,35 @@ public class LiquidChart {
                 .addPaletteEntry("Fluid-Circle", "Circle", "A Circle Fluid chart component.", (BufferedImage) null,
                         (new JsonParser())
                                 .parse(new InputStreamReader(
-                                        RadComponents.class.getResourceAsStream("/Platte/Circle.json")))
+                                        RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase()
+                                                + "/Platte/Circle.json")))
                                 .getAsJsonObject())
                 .addPaletteEntry("Fluid-Pin", "Pin", "A Pin Fluid chart component.", (BufferedImage) null,
                         (new JsonParser())
                                 .parse(new InputStreamReader(
-                                        RadComponents.class.getResourceAsStream("/Platte/Pin.json")))
+                                        RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase()
+                                                + "/Platte/Pin.json")))
                                 .getAsJsonObject())
                 .addPaletteEntry("Fluid-Diamond", "Diamond", "A Diamond Fluid chart component.", (BufferedImage) null,
                         (new JsonParser())
                                 .parse(new InputStreamReader(
-                                        RadComponents.class.getResourceAsStream("/Platte/Diamond.json")))
+                                        RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase()
+                                                + "/Platte/Diamond.json")))
                                 .getAsJsonObject())
                 .addPaletteEntry("Fluid-Rectangle", "Rectangle", "A Rectangle Fluid chart component.",
                         (BufferedImage) null,
                         (new JsonParser())
                                 .parse(new InputStreamReader(
-                                        RadComponents.class.getResourceAsStream("/Platte/Rectangle.json")))
+                                        RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase()
+                                                + "/Platte/Rectangle.json")))
                                 .getAsJsonObject())
                 .addPaletteEntry("Fluid-Triangle", "Triangle", "A Triangle Fluid chart component.",
                         (BufferedImage) null,
                         (new JsonParser())
                                 .parse(new InputStreamReader(
-                                        RadComponents.class.getResourceAsStream("/Platte/Triangle.json")))
+                                        RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase()
+                                                + "/Platte/Triangle.json")))
                                 .getAsJsonObject())
-                .setDefaultMetaName("FluidChart").setResources(RadComponents.BROWSER_RESOURCES).build();
+                .setDefaultMetaName(META_NAME).setResources(RadComponents.BROWSER_RESOURCES).build();
     }
 }

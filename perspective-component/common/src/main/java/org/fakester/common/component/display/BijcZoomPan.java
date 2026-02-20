@@ -12,6 +12,7 @@ import org.fakester.common.RadComponents;
 
 public class BijcZoomPan {
     public static String COMPONENT_ID = "bijc.container.zoompan";
+        public static final String META_NAME = "zoomPanContainer";
     public static final ZoomPanEventDescriptor ONSCALECHANGE_EVENT_DESCRIPTOR = new ZoomPanEventDescriptor(
             "onScaleChanged");
     public static final ZoomPanEventDescriptor ONPOSITIONCHANGE_EVENT_DESCRIPTOR = new ZoomPanEventDescriptor(
@@ -25,8 +26,8 @@ public class BijcZoomPan {
     }
 
     public static JsonSchema getSchema(String resourcePath) {
-                String normalizedPath = resourcePath.startsWith("/") ? resourcePath : "/" + resourcePath;
-                return JsonSchema.parse(RadComponents.class.getResourceAsStream(normalizedPath));
+        return JsonSchema.parse(
+                RadComponents.class.getResourceAsStream("/" + META_NAME.toLowerCase() + "/" + resourcePath));
     }
 
     static {
@@ -35,7 +36,7 @@ public class BijcZoomPan {
                 .setId(COMPONENT_ID)
                 .setSchema(getSchema("bijczoompan.props.json"))
                 .setName("Zoom Pan Container")
-                .setDefaultMetaName("zoomPanContainer")
+                .setDefaultMetaName(META_NAME)
                 .setResources(RadComponents.BROWSER_RESOURCES)
                 .addPaletteEntry("", "Zoom Pan Container", "An XY container with zoom and pan capabilities",
                         (BufferedImage) null, (JsonObject) null)
@@ -47,7 +48,7 @@ public class BijcZoomPan {
 
     public static class ZoomPanEventDescriptor extends ComponentEventDescriptor {
         public ZoomPanEventDescriptor(String name) {
-            super(name, BijcZoomPan.getSchema("events/bijczoompan.event." + name + ".json"));
+                        super(name, BijcZoomPan.getSchema("events/bijczoompan.event." + name + ".json"));
         }
     }
 }

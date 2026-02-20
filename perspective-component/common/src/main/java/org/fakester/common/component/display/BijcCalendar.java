@@ -12,6 +12,7 @@ import org.fakester.common.RadComponents;
 
 public class BijcCalendar {
     public static String COMPONENT_ID = "bijc.display.calendar";
+        public static final String META_NAME = "calendar";
     public static final ComponentEventDescriptor DATECLICK_EVENT_DESCRIPTOR = new CalendarEventDescriptor(
             "onDateClick");
     public static final ComponentEventDescriptor SELECTIONMADE_EVENT_DESCRIPTOR = new CalendarEventDescriptor(
@@ -35,15 +36,15 @@ public class BijcCalendar {
     public BijcCalendar() {
     }
 
-    public static JsonSchema getSchema(String resourcePath) {
-        return JsonSchema.parse(RadComponents.class.getResourceAsStream("/" + resourcePath));
+        public static JsonSchema getSchema(String resourcePath) {
+                return JsonSchema.parse(RadComponents.class.getResourceAsStream("/" + META_NAME + "/" + resourcePath));
     }
 
     static {
         DESCRIPTOR = ComponentBuilder.newBuilder().setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
                 .setId(COMPONENT_ID).setModuleId(RadComponents.MODULE_ID)
                 .setSchema(getSchema("bijccalendar.props.json")).setName("Calendar")
-                .setDefaultMetaName("calendar")
+                .setDefaultMetaName(META_NAME)
                 .setResources(RadComponents.BROWSER_RESOURCES)
                 .addPaletteEntry("", "Calendar", "A calendar component", (BufferedImage) null,
                         (JsonObject) null)
@@ -59,7 +60,7 @@ public class BijcCalendar {
 
     public static class CalendarEventDescriptor extends ComponentEventDescriptor {
         public CalendarEventDescriptor(String name) {
-            super(name, BijcCalendar.getSchema("bijccalendar." + name + ".json"));
+                        super(name, BijcCalendar.getSchema("events/bijccalendar." + name + ".json"));
         }
     }
 }

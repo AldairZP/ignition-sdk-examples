@@ -12,9 +12,13 @@ import com.inductiveautomation.perspective.common.api.ComponentDescriptorImpl;
  */
 public class Toastify {
     public static final String COMPONENT_ID = "rad.display.toastify";
+        public static final String META_NAME = "toastify";
 
-    public static final JsonSchema SCHEMA = JsonSchema
-            .parse(RadComponents.class.getResourceAsStream("/toastify.props.json"));
+        public static JsonSchema getSchema(String resourcePath) {
+                return JsonSchema.parse(RadComponents.class.getResourceAsStream("/" + META_NAME + "/" + resourcePath));
+        }
+
+        public static final JsonSchema SCHEMA = getSchema("toastify.props.json");
 
     public static ComponentDescriptor DESCRIPTOR = ComponentDescriptorImpl.ComponentBuilder.newBuilder()
             .setPaletteCategory(RadComponents.COMPONENT_CATEGORY)
@@ -22,7 +26,7 @@ public class Toastify {
             .setModuleId(RadComponents.MODULE_ID)
             .setSchema(SCHEMA) // this could alternatively be created purely in Java if desired
             .setName("04 Toastify")
-            .setDefaultMetaName("toastify")
+            .setDefaultMetaName(META_NAME)
             .addPaletteEntry("", "Toastify", "A component that uses component messaging and data fetching delegates.",
                     null, null)
             .setResources(RadComponents.BROWSER_RESOURCES)
