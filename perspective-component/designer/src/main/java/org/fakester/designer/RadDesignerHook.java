@@ -9,6 +9,8 @@ import org.fakester.common.component.display.LiquidChart;
 import org.fakester.common.component.display.BijcCalendar;
 import org.fakester.common.component.display.BijcExternalEventBox;
 import org.fakester.common.component.display.BijcZoomPan;
+import org.fakester.common.component.display.ApexCharts;
+import org.fakester.common.component.display.ChartJs;
 
 import com.inductiveautomation.ignition.common.BundleUtil;
 import com.inductiveautomation.ignition.common.licensing.LicenseState;
@@ -62,6 +64,8 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.registerComponent(BijcCalendar.DESCRIPTOR);
         registry.registerComponent(BijcExternalEventBox.DESCRIPTOR);
         registry.registerComponent(BijcZoomPan.DESCRIPTOR);
+        registry.registerComponent(ApexCharts.DESCRIPTOR);
+        registry.registerComponent(ChartJs.DESCRIPTOR);
 
         this.delegateRegistry.register(BijcZoomPan.COMPONENT_ID, new BijcZoomPanDesignDelegate());
     }
@@ -80,6 +84,8 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.removeComponent(BijcCalendar.COMPONENT_ID);
         registry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
         registry.removeComponent(BijcZoomPan.COMPONENT_ID);
+        registry.removeComponent(ApexCharts.COMPONENT_ID);
+        registry.removeComponent(ChartJs.COMPONENT_ID);
         this.delegateRegistry.remove(BijcZoomPan.COMPONENT_ID);
     }
 }

@@ -13,10 +13,15 @@
         "deepClean": "yarn run clean && rimraf node_modules __coverage__"
     },
     "dependencies": {
+        "@sgratzl/chartjs-chart-boxplot": "^4.4.5",
         "@inductiveautomation/perspective-client": "^2.1.16",
+        "apexcharts": "^5.3.5",
         "axios": "^0.28.0",
+        "chart.js": "^4.5.0",
         "mafs": "^0.21.0",
         "react": "18.2.0",
+        "react-apexcharts": "^1.8.0",
+        "react-chartjs-2": "^5.3.0",
         "react-dom": "18.2.0",
         "react-toastify": "^11.0.5",
         "sileo": "^0.1.3"

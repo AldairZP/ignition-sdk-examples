@@ -41,5 +41,11 @@ public class RadComponents {
 
                         new BrowserResource("bijc-zoompan-components-css",
                                         String.format("/res/%s/BijcZoomPan.css", URL_ALIAS),
-                                        BrowserResource.ResourceType.CSS));
+                                        BrowserResource.ResourceType.CSS),
+                                
+
+                        new BrowserResource("embr-charts-client",
+                                        String.format("/res/%s/embr-charts-client.js", URL_ALIAS),
+                                        BrowserResource.ResourceType.JS)
+                                );
 }
