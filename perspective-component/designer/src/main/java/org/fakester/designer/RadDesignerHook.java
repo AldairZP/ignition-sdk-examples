@@ -2,6 +2,7 @@ package org.fakester.designer;
 
 import org.fakester.common.component.display.Messenger;
 import org.fakester.common.component.display.Toastify;
+import org.fakester.designer.component.display.BijcZoomPanDesignDelegate;
 import org.fakester.common.component.display.ToastSileo;
 import org.fakester.common.component.display.IconBadge;
 import org.fakester.common.component.display.LiquidChart;
@@ -62,7 +63,7 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.registerComponent(BijcExternalEventBox.DESCRIPTOR);
         registry.registerComponent(BijcZoomPan.DESCRIPTOR);
 
-        // this.delegateRegistry.register(BijcZoomPan.COMPONENT_ID, new BijcZoomPanDesignDelegate());
+        this.delegateRegistry.register(BijcZoomPan.COMPONENT_ID, new BijcZoomPanDesignDelegate());
     }
 
     @Override
@@ -79,6 +80,6 @@ public class RadDesignerHook extends AbstractDesignerModuleHook {
         registry.removeComponent(BijcCalendar.COMPONENT_ID);
         registry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
         registry.removeComponent(BijcZoomPan.COMPONENT_ID);
-        // this.delegateRegistry.remove(BijcZoomPan.COMPONENT_ID);
+        this.delegateRegistry.remove(BijcZoomPan.COMPONENT_ID);
     }
 }

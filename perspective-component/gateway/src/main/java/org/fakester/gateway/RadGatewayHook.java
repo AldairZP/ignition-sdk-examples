@@ -83,7 +83,6 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
             this.componentRegistry.removeComponent(BijcCalendar.COMPONENT_ID);
             this.componentRegistry.removeComponent(BijcExternalEventBox.COMPONENT_ID);
             this.componentRegistry.removeComponent(BijcZoomPan.COMPONENT_ID);
-            this.componentRegistry.removeComponent(BijcZoomPan.COMPONENT_ID);
         } else {
             log.warn("Component registry was null, could not unregister Rad Components.");
         }
@@ -103,6 +102,10 @@ public class RadGatewayHook extends AbstractGatewayModuleHook {
     public Optional<String> getMountPathAlias() {
         return Optional.of(RadComponents.URL_ALIAS);
     }
+
+   public boolean isMakerEditionCompatible() {
+      return true;
+   }
 
     @Override
     public boolean isFreeModule() {
